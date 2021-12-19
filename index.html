@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Место: интерактивный сайт для фотографий</title>
+    <link rel="stylesheet" href="./pages/index.css">
+    <link rel="stylesheet" href="./all.css">
+</head>
+
+<body class="page">
+
+    <section class="header">
+        <img class="header__logo" src="./images/logo.svg" alt="логотип Место">
+    </section>
+
+    <main class="main">
+        <section class="profile">
+                <img src="./images/avatar.jpg" alt="фотография профиля" class="profile__avatar">
+            <div class="profile__info">
+                <div class="profile__container">
+                    <h1 class="profile__title">Жак-Ив Кусто</h1>
+                    <button class="profile__edit-button" type="button"></button>
+                    <p class="profile__subtitle">Исследователь океана</p>
+                </div>
+                <button class="profile__add-button" type="button">+</button>
+
+            </div>
+        </section>
+
+        <section class="elements">
+            <ul class="elements__grid">
+                <li class="element">
+                    
+                    <img class="element__image" src="./images/kazan.jpg" alt="черно-белая карусель">
+                    <h2 class="element__title">Казань</h2>
+                </li>
+
+                <li class="element">
+                    <img class="element__image" src="./images/baikal lake.jpg" alt="лед">
+                    <h2 class="element__title">Озеро Байкал</h2>
+                </li>
+
+                <li class="element">
+                    <img class="element__image" src="./images/kaliningrad.JPG" alt="три черно-бнлых дома">
+                    <h2 class="element__title">Калининград</h2>
+                </li>
+
+                <li class="element">
+                    <img class="element__image" src="./images/ladozhkoe lake.jpg" alt="озеро и маяк">
+                    <h2 class="element__title">Ладожское озеро</h2>
+                </li>
+
+                <li class="element">
+                    <img class="element__image" src="./images/khibiny.JPG" alt="заснеженные вершины">
+                    <h2 class="element__title">Хибины</h2>
+                </li>
+
+                <li class="element">
+                    <img class="element__image" src="./images/vyborg.jpg" alt="церковь на холме">
+                    <h2 class="element__title">Выборг</h2>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <footer class="footer">
+        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
+    <script src="./scripts/index.js"></script>
+</body>
+
+</html>
