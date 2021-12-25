@@ -182,7 +182,7 @@ line-height: 17px;
 .profile__edit-button {
 width: 26px;
 height: 24px;
-background-image: url(./images/Edit\ Button.svg);
+background-image: url(./images/EditButton.svg);
 background-size: contain;
 background-color: transparent; 
 background-repeat: no-repeat;
