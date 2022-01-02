@@ -86,7 +86,7 @@ display: flex;
 justify-content: flex-start;
 max-width: 882px;
 position: relative; 
-flex-flow: flex wrap;
+flex-wrap: wrap;
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
@@ -469,7 +469,6 @@ text-align: left;
     line-height: 22px;
     text-align: center;
     color: #FFFFFF;
-    min-width: 358px;
 max-height: 50px;
 background-color: #000000;
 cursor: pointer;
@@ -487,7 +486,6 @@ width: 100%;
     margin-top: 45px;
     margin-bottom: 25px;
         min-height: 46px; 
-        max-width: 238px;
 
     }
 }

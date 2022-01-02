@@ -85,28 +85,16 @@
     </footer>
 
     <section class="popup">
-        <!---
-        <div class="popup__container">
-            <button class="popup__close" aria-label="close"></button>
-            <h2 class="popup__heading">Редактировать профиль</h2>
-            <div clas="popup__text-container">
-                <p class="popup__title">Жак-Ив Кусто</p>
-                <p class="popup__subtitle">Исследователь океана</p>
-            </div>
-            <button class="popup__save" type="submit">Сохранить</button>
-        </div>
-         --->
-
         <div class="popup__container">
             <h2 class="popup__heading">Редактировать профиль</h2>
             <form class="popup__form" name="edit" novalidate>
                 <label for="name" class="popup__field">
                     <input class="popup__input" type="text" placeholder="Ваше имя" id="name" name="name" minlength="2"
-                        maxlenght="40" required>
+                        maxlength="40" required>
                 </label>
                 <label for="description" class="popup__field">
-                    <input class="popup__input popup__input_description" type="text" placeholder="Описание" od="description" name="description"
-                        minlength="2" maxlenght="40" required>
+                    <input class="popup__input popup__input_description" type="text" placeholder="Описание"
+                        id="description" name="description" minlength="2" maxlength="40" required>
 
                 </label>
                 <button class="popup__save" type="submit">Сохранить</button>
