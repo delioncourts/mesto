@@ -11,7 +11,8 @@
 <body class="page">
 
     <header class="header">
-        <a href="https://delioncourts.github.io/mesto/index.html"><img class="header__logo" src="./images/logo.svg" alt="логотип Место"></a>
+        <a href="https://delioncourts.github.io/mesto/index.html"><img class="header__logo" src="./images/logo.svg"
+                alt="логотип Место"></a>
     </header>
 
     <main class="main">
@@ -20,11 +21,11 @@
             <div class="profile__info">
                 <div class="profile__container">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
-                    <button class="profile__edit-button" type="button"></button>
+                    <button class="profile__edit-button" type="button" aria-label="редактировать"></button>
                 </div>
                 <p class="profile__subtitle">Исследователь океана</p>
             </div>
-            <button class="profile__add-button" type="button"></button>
+            <button class="profile__add-button" type="button" aria-label="нравится"></button>
         </section>
 
         <section class="cards">
@@ -33,7 +34,7 @@
                     <img class="card__image" src="./images/kazan.jpg" alt="черно-белая карусель">
                     <div class="card__description">
                         <h2 class="card__title">Казань</h2>
-                        <button class="card__like" type="button"></button>
+                        <button class="card__like" type="button" aria-label="нравится"></button>
                     </div>
                 </li>
 
@@ -41,7 +42,7 @@
                     <img class="card__image" src="./images/baikalLake.jpg" alt="лед">
                     <div class="card__description">
                         <h2 class="card__title">Озеро Байкал</h2>
-                        <button class="card__like" type="button"></button>
+                        <button class="card__like" type="button" aria-label="нравится"></button>
                     </div>
                 </li>
 
@@ -49,7 +50,7 @@
                     <img class="card__image" src="./images/kaliningrad.JPG" alt="три черно-бнлых дома">
                     <div class="card__description">
                         <h2 class="card__title">Калининград</h2>
-                        <button class="card__like" type="button"></button>
+                        <button class="card__like" type="button" aria-label="нравится"></button>
                     </div>
                 </li>
 
@@ -57,7 +58,7 @@
                     <img class="card__image" src="./images/ladozhkoeLake.jpg" alt="озеро и маяк">
                     <div class="card__description">
                         <h2 class="card__title">Ладожское озеро</h2>
-                        <button class="card__like" type="button"></button>
+                        <button class="card__like" type="button" aria-label="нравится"></button>
                     </div>
                 </li>
 
@@ -65,7 +66,7 @@
                     <img class="card__image" src="./images/khibiny.JPG" alt="заснеженные вершины">
                     <div class="card__description">
                         <h2 class="card__title">Хибины</h2>
-                        <button class="card__like" type="button"></button>
+                        <button class="card__like" type="button" aria-label="нравится"></button>
                     </div>
                 </li>
 
@@ -73,7 +74,7 @@
                     <img class="card__image" src="./images/vyborg.jpg" alt="церковь на холме">
                     <div class="card__description">
                         <h2 class="card__title">Выборг</h2>
-                        <button class="card__like" type="button"></button>
+                        <button class="card__like" type="button" aria-label="нравится"></button>
                     </div>
                 </li>
             </ul>
@@ -83,26 +84,21 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <section class="popup">
+    <article class="popup">
         <div class="popup__container">
             <h2 class="popup__heading">Редактировать профиль</h2>
             <form class="popup__form" name="edit" novalidate>
-                <label for="name" class="popup__field">
-                    <input class="popup__input popup__input_name" type="text" placeholder="Ваше имя" id="name"
-                        name="name" minlength="2" maxlength="40" required>
-                </label>
-                <label for="description" class="popup__field">
-                    <input class="popup__input popup__input_job" type="text" placeholder="Описание" id="description"
-                        name="description" minlength="2" maxlength="40" required>
-
-                </label>
+                <input class="popup__input popup__input_type_name" type="text" placeholder="Ваше имя" id="name" name="name"
+                    minlength="2" maxlength="40" required>
+                <input class="popup__input popup__input_type_job" type="text" placeholder="Описание" id="description"
+                    name="description" minlength="2" maxlength="40" required>
                 <button class="popup__save" type="submit">Сохранить</button>
             </form>
 
-            <button class="popup__close" aria-label="close"></button>
+            <button class="popup__close" aria-label="закрыть" type="button"></button>
         </div>
 
-    </section>
+    </article>
 
     <script src="./scripts/index.js"></script>
 </body>
