@@ -7,7 +7,7 @@
          url(./inter-400.woff) format("woff");
   }
 
-  @font-face {
+@font-face {
      font-family: 'Inter';
      font-style:  normal;
      font-weight: 500;
@@ -16,16 +16,7 @@
           url(./Inter-500.woff) format("woff");
   }
 
-  @font-face {
-    font-family: 'Inter';
-    font-style:  normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(./inter-700.woff2) format("woff2"),
-         url(./inter-700.woff) format("woff");
-  }
-
-  @font-face {
+@font-face {
     font-family: 'Inter';
     font-style:  normal;
     font-weight: 900;

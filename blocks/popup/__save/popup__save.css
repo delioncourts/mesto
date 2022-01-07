@@ -8,7 +8,6 @@
 	color: #FFFFFF;
 	max-height: 50px;
 	background-color: #000000;
-	cursor: pointer;
 	margin: 0 auto;
 	margin-top: 56px;
 	margin-bottom: 29px;
@@ -27,6 +26,8 @@
 	}
 }
 
-.popup__save:focus {
-	outline-color: rgba(0, 0, 0, 1);
+.popup__save:hover {
+	background-color: rgba(0, 0, 0, .8);
+	border-radius: 2px;
+	cursor: pointer;
 }
