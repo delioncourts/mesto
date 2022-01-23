@@ -1,37 +1,3 @@
-const popupOpenButton = document.querySelector('.profile__edit-button');
-const popupCloseButton = document.querySelector('.popup__close');
-const popup = document.querySelector('.popup');
-let formElement = document.querySelector('.popup__form');
-let nameInput = document.querySelector('.popup__input_type_name');
-let jobInput = document.querySelector('.popup__input_type_job');
-let profileTitle = document.querySelector('.profile__title');
-let profileSubtitle = document.querySelector('.profile__subtitle');
-
-function openPopup() {
-    popup.classList.add('popup_opened');
-    nameInput.value=profileTitle.textContent;
-    jobInput.value=profileSubtitle.textContent;
-}
-
-function closePopup() {
-    popup.classList.remove('popup_opened');
-}
-
-function formSubmitHandler(evt) {
-    evt.preventDefault();
-    // Получите значение полей jobInput и nameInput из свойства value
-    // Выберите элементы, куда должны быть вставлены значения полей
-    // Вставьте новые значения с помощью textContent
-    profileTitle.textContent=nameInput.value;
-    profileSubtitle.textContent=jobInput.value;
-    closePopup();
-}
-
-popupOpenButton.addEventListener('click', openPopup);
-popupCloseButton.addEventListener('click', closePopup);
-
-formElement.addEventListener('submit', formSubmitHandler);
-
 const initialCards = [
     {
       name: 'Архыз',
@@ -60,17 +26,92 @@ const initialCards = [
   ];
 
 
-  const list = document.querySelector('.cards__grid');
-  const cardTemplate = document.querySelector('.card-template').content;
+  //Профиль 
+  //const profileTitle= document.querySelector('.popup_type_edit');
+  //const profileTitle = document.querySelector('.popup_type_edit');
+  //let formElement = document.querySelector('.popup__form');
+  //let nameInput = document.querySelector('.popup__input_type_name');
+ // let jobInput = document.querySelector('.popup__input_type_job');
+  //let profileTitle = document.querySelector('.profile__title');
+  //let profileSubtitle = document.querySelector('.profile__subtitle');
+  
+const nameInput = document.querySelector('.popup__input_type_name');
+const jobInput = document.querySelector('.popup__input_type_job');
+const profileTitle = document.querySelector('.profile__title');
+const profileSubtitle = document.querySelector('.profile__subtitle');
 
-  initialCards.forEach(function(cardData) {
-      const cardElement = cardTemplate.cloneNode(true);
-      const cardImage = cardElement.querySelector('.card__image');
-      const cardTitle = cardElement.querySelector('.card__title');
- 
-      cardTitle.textContent = cardData.name;
-      cardImage.src = cardData.link;
+  //Модалки
+const editModal = document.querySelector('.popup_type_edit');
+const addCardModal = document.querySelector('.popup_type_add-card');
 
-      list.prepend(cardElement);
-  }
-  )
+//формы
+const editForm = editModal.querySelector('.popup__form');
+const addCardForm = addCardModal.querySelector('.popup__form');
+
+  //кнопки
+const editProfileButton = document.querySelector('.profile__edit-button');
+const closeModalEditButton = editModal.querySelector('.popup__close');
+
+const addCardButton = document.querySelector('.profile__add-button');
+const closeAddCardButton = addCardModal.querySelector('.popup__close');
+
+// инпуты 
+const inputCardName = document.querySelector('.popup__input_type_card-name');
+const inputCardLink = document.querySelector('.popup__input_type_card-link');
+
+const inputProfileName = document.querySelector('.popup__input_type_name');
+const inputProfileDescription = document.querySelector('.popup__input_type_job');
+
+// ADD CARD
+const list = document.querySelector('.cards__grid');
+const cardTemplate = document.querySelector('.card-template').content;
+
+// открытие и закрытие попапов
+function toggleModal(modal) {
+    modal.classList.toggle('popup_opened');
+}
+
+
+editProfileButton.addEventListener('click', () => toggleModal(editModal))
+closeModalEditButton.addEventListener('click', () => toggleModal(editModal))
+
+
+addCardButton.addEventListener('click', () => toggleModal(addCardModal))
+closeAddCardButton.addEventListener('click', () => toggleModal(addCardModal))
+
+
+// добавить карточку 
+addCardForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+createCard({
+    name: inputCardName.value,
+    link: inputCardLink.value
+})
+
+toggleModal(addCardModal)
+})
+
+editForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    profileTitle.textContent=nameInput.value;
+    profileSubtitle.textContent=jobInput.value;
+    
+
+toggleModal(editModal)
+})
+
+function createCard(cardData) {
+        const cardElement = cardTemplate.cloneNode(true);
+        const cardImage = cardElement.querySelector('.card__image');
+        const cardTitle = cardElement.querySelector('.card__title');
+
+
+        cardTitle.textContent = cardData.name;
+        cardImage.src = cardData.link;
+
+        list.prepend(cardElement);
+    }
+
+    initialCards.forEach(createCard)
