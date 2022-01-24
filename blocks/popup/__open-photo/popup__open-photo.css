@@ -1,11 +1,4 @@
 .popup__open-photo {
-    max-width: 816px;
-    max-height: 540px;
-}
-
-@media screen and (min-width: 320px) and (max-width: 767px) {
-    .popup__open-photo {
-        max-width: 240px;
-        max-height: 299px;
-    }
+    max-width: 75vw;
+    max-height: 75vh;
 }
