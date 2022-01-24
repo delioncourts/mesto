@@ -9,5 +9,7 @@
 	align-items: center;
 	justify-content: center;
 	z-index: 2;
-	transition: opacity 0.5s linear;
+	visibility: hidden;
+	opacity: 0;
+  	transition: visibility 0s, opacity 0.5s linear;
 }
