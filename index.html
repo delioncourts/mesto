@@ -65,13 +65,21 @@
         </div>
     </article>
 
+    <article class="popup popup_type_open-card">
+        <div class="popup__container-open">
+            <img class="popup__open-photo" alt="изображение">
+            <p class="popup__open-photo-subtitle"></p>
+            <button class="popup__close" aria-label="закрыть" type="button"></button>
+        </div>
+    </article>
+
     <template class="card-template">
         <li class="card">
             <button class="card__delete" type="button" aria-label="удалить"></button>
             <img class="card__image" src="" alt=""></div>
             <div class="card__description">
                 <h2 class="card__title"></h2>
-                <button class="card__like" type="button" aria-label="нравится"></button>
+                <button class="card__like card__like-active" type="button" aria-label="нравится"></button>
             </div>
         </li>
     </template>
