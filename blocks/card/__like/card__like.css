@@ -10,6 +10,7 @@
 	background-position: center;
 	width: 22px;
 	height: 19px;
+	z-index: 10;
 }
 
 .card__like:hover {
