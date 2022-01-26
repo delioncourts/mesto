@@ -47,7 +47,7 @@
                     name="description" minlength="2" maxlength="40" required>
                 <button class="popup__save" type="submit">Сохранить</button>
             </form>
-            <button class="popup__close" aria-label="закрыть" type="button"></button>
+            <button class="popup__close popup__close_type_edit" aria-label="закрыть" type="button"></button>
         </div>
     </article>
 
@@ -55,13 +55,13 @@
         <div class="popup__container">
             <h2 class="popup__heading">Новое место</h2>
             <form class="popup__form" name="edit" novalidate>
-                <input class="popup__input popup__input_type_card-name" type="text" placeholder="Название" id="card-name"
-                    name="card-name" required>
-                <input class="popup__input popup__input_type_card-link" type="text" placeholder="Ссылка на картинку" id="link"
-                    name="link" required>
-                <button class="popup__save" type="submit">Сохранить</button>
+                <input class="popup__input popup__input_type_card-name" type="text" placeholder="Название"
+                    id="card-name" name="card-name" required>
+                <input class="popup__input popup__input_type_card-link" type="text" placeholder="Ссылка на картинку"
+                    id="link" name="link" required>
+                <button class="popup__save popup__create-card" type="submit">Сохранить</button>
             </form>
-            <button class="popup__close" aria-label="закрыть" type="button"></button>
+            <button class="popup__close popup__close_add-card" aria-label="закрыть" type="button"></button>
         </div>
     </article>
 
@@ -69,8 +69,8 @@
         <div class="popup__container-open">
             <img class="popup__open-photo" alt="изображение">
             <p class="popup__open-photo-subtitle"></p>
-            <button class="popup__close" aria-label="закрыть" type="button"></button>
         </div>
+        <button class="popup__close popup__close_open-card" aria-label="закрыть" type="button"></button>
     </article>
 
     <template class="card-template">
@@ -79,7 +79,7 @@
             <img class="card__image" src="#" alt="изображение">
             <div class="card__description">
                 <h2 class="card__title"></h2>
-                <button class="card__like card__like-active" type="button" aria-label="нравится"></button>
+                <button class="card__like" type="button" aria-label="нравится"></button>
             </div>
         </li>
     </template>
