@@ -8,9 +8,8 @@
 	background-image: url(../../../images/likeNotActive.svg);
 	background-repeat: no-repeat;
 	background-position: center;
-	width: 22px;
+	width: 30px;
 	height: 19px;
-	z-index: 10;
 }
 
 .card__like:hover {

@@ -47,7 +47,15 @@
                     name="description" minlength="2" maxlength="40" required>
                 <button class="popup__save" type="submit">Сохранить</button>
             </form>
-            <button class="popup__close popup__close_type_edit" aria-label="закрыть" type="button"></button>
+            <button class="popup__close" aria-label="закрыть" type="button"></button>
+        </div>
+    </article>
+
+    <article class="popup popup_type_open-card">
+        <div class="popup__container-open">
+            <button class="popup__close" aria-label="закрыть" type="button"></button>
+            <img class="popup__open-photo" alt="изображение">
+            <p class="popup__open-photo-subtitle"></p>
         </div>
     </article>
 
@@ -61,16 +69,8 @@
                     id="link" name="link" required>
                 <button class="popup__save popup__create-card" type="submit">Сохранить</button>
             </form>
-            <button class="popup__close popup__close_add-card" aria-label="закрыть" type="button"></button>
+            <button class="popup__close" aria-label="закрыть" type="button"></button>
         </div>
-    </article>
-
-    <article class="popup popup_type_open-card">
-        <div class="popup__container-open">
-            <img class="popup__open-photo" alt="изображение">
-            <p class="popup__open-photo-subtitle"></p>
-        </div>
-        <button class="popup__close popup__close_open-card" aria-label="закрыть" type="button"></button>
     </article>
 
     <template class="card-template">
