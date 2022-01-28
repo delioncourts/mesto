@@ -38,7 +38,7 @@ const imageCardModal = document.querySelector(".popup_type_open-card");
 
 //формы
 const addCardForm = addCardModal.querySelector(".popup__form");
-const formElement = document.querySelector(".popup__form");
+const profileForm = editModal.querySelector(".popup__form")
 
 //кнопки
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -57,7 +57,6 @@ const inputCardLink = document.querySelector(".popup__input_type_card-link");
 // ADD CARD
 const cardList = document.querySelector(".cards__grid");
 const cardTemplate = document.querySelector(".card-template").content;
-const popup = document.querySelector(".popup");
 
 // открытая карточка
 const popupOpenPhoto = document.querySelector(".popup__open-photo");
@@ -68,15 +67,6 @@ function toggleModal(modal) {
   modal.classList.toggle("popup_opened");
 }
 
-// Функции закрытия и открытия попапа
-function openPopup() {
-  popup.classList.add("popup_opened");
-}
-
-function closePopup() {
-  popup.classList.remove("popup_opened");
-}
-
 // профиль
 editProfileButton.addEventListener("click", () => {
   nameInput.value = profileTitle.textContent;
@@ -84,25 +74,34 @@ editProfileButton.addEventListener("click", () => {
   toggleModal(editModal);
 });
 
+
 // добавить карточку
 addCardForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  const cardName = inputCardName.value;
+  const cardLink = inputCardLink.value;
+  const obj = {
+    name: cardName,
+    link: cardLink
+  }
 
-  createCard({
-    name: inputCardName.value,
-    link: inputCardLink.value,
-  });
+  renderCard(obj); 
   addCardForm.reset();
   toggleModal(addCardModal);
+  inputCardName.value = "";
+  inputCardLink.value = "";
 });
 
+
 //редактирование профиля
-function formSubmitHandler(evt) {
+function submitProfileForm(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
   toggleModal(editModal);
 }
+
+profileForm.addEventListener('submit', submitProfileForm);
 
 // удалить карточку
 function deleteCard(e) {
@@ -139,10 +138,10 @@ function createCard(cardData) {
   return cardElement;
 }
 
-function renderCard(cardData) {
+function renderCard(cardData) { 
   const card = createCard(cardData);
-  cardList.prepend(card);
-}
+  cardList.prepend(card); 
+} 
 
 initialCards.forEach(renderCard);
 
@@ -152,8 +151,4 @@ closeModalEditButton.addEventListener("click", () => toggleModal(editModal));
 addCardButton.addEventListener("click", () => toggleModal(addCardModal));
 closeAddCardButton.addEventListener("click", () => toggleModal(addCardModal));
 
-openImageCard.addEventListener("click", () => toggleModal(imageCardModal));
-
-closeImageCard.addEventListener("click", () => {
-  closePopup(imageCardModal);
-});
+closeImageCard.addEventListener("click", () => toggleModal(imageCardModal));
