@@ -139,8 +139,7 @@ function createCard(cardData) {
 }
 
 function renderCard(cardData) { 
-  const card = createCard(cardData);
-  cardList.prepend(card); 
+  cardList.prepend(createCard(cardData)); 
 } 
 
 initialCards.forEach(renderCard);
