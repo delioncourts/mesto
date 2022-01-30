@@ -78,14 +78,11 @@ editProfileButton.addEventListener("click", () => {
 // добавить карточку
 addCardForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  const cardName = inputCardName.value;
-  const cardLink = inputCardLink.value;
-  const obj = {
-    name: cardName,
-    link: cardLink
-  }
-
-  renderCard(obj); 
+  const card = createCard({
+    name: inputCardName.value,
+    link: inputCardLink.value,
+  });
+  renderCard(card); 
   addCardForm.reset();
   toggleModal(addCardModal);
   inputCardName.value = "";
@@ -138,11 +135,14 @@ function createCard(cardData) {
   return cardElement;
 }
 
-function renderCard(cardData) { 
-  cardList.prepend(createCard(cardData)); 
-} 
+function renderCard(card) { 
+  cardList.prepend(card); 
+}
 
-initialCards.forEach(renderCard);
+initialCards.forEach(item => {
+  const card = createCard(item);
+  renderCard(card);
+});
 
 // события
 closeModalEditButton.addEventListener("click", () => toggleModal(editModal));
