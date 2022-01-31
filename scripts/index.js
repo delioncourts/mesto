@@ -85,8 +85,8 @@ addCardForm.addEventListener("submit", (event) => {
   renderCard(card); 
   addCardForm.reset();
   toggleModal(addCardModal);
-  inputCardName.value = "";
-  inputCardLink.value = "";
+  //inputCardName.value = "";
+  //inputCardLink.value = "";
 });
 
 
