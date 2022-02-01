@@ -1,31 +1,4 @@
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
-//Профиль
+//профиль
 
 const nameInput = document.querySelector(".popup__input_type_name");
 const jobInput = document.querySelector(".popup__input_type_job");
@@ -62,18 +35,45 @@ const cardTemplate = document.querySelector(".card-template").content;
 const popupOpenPhoto = document.querySelector(".popup__open-photo");
 const popupOpenSubtitle = document.querySelector(".popup__open-photo-subtitle");
 
-// открытие и закрытие попапов
-function toggleModal(modal) {
-  modal.classList.toggle("popup_opened");
+//попап
+const popup = document.querySelector(".popup");
+
+// открытие и закрытие попапов при помощи toggle
+//function toggleModal(modal) {modal.classList.toggle("popup_opened")}
+
+//открытие попапа 
+function openPopup(popup) {
+popup.classList.add("popup_opened");
+document.addEventListener("mousedown", closePopupOverlay); 
+document.addEventListener("keydown", closePopupEsc);
 }
+
+//закрытие попапа
+function closePopup(popup){
+  popup.classList.remove("popup_opened");
+  document.removeEventListener("mousedown", closePopupOverlay); 
+  document.removeEventListener("keydown", closePopupEsc);
+}
+
+//закрытие по оверлею
+function closePopupOverlay(evt) {
+  if (evt.target.classList.contains("popup")){
+    closePopup(document.querySelector(".popup_opened"))
+  }
+};
+
+//закрытие по Esc
+function closePopupEsc(evt) {
+  if (evt.key === "Escape")
+  closePopup(document.querySelector(".popup_opened"))
+};
 
 // профиль
 editProfileButton.addEventListener("click", () => {
+  openPopup(editModal);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-  toggleModal(editModal);
 });
-
 
 // добавить карточку
 addCardForm.addEventListener("submit", (event) => {
@@ -84,30 +84,29 @@ addCardForm.addEventListener("submit", (event) => {
   });
   renderCard(card); 
   addCardForm.reset();
-  toggleModal(addCardModal);
+  closePopup(addCardModal);
   //inputCardName.value = "";
   //inputCardLink.value = "";
 });
-
 
 //редактирование профиля
 function submitProfileForm(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-  toggleModal(editModal);
+  closePopup(editModal);
 }
 
 profileForm.addEventListener('submit', submitProfileForm);
 
 // удалить карточку
-function deleteCard(e) {
-  e.target.closest(".card").remove();
+function deleteCard(evt) {
+  evt.target.closest(".card").remove();
 }
 
 // поставить лайк
-function addLike(e) {
-  e.target.closest(".card__like").classList.toggle("card__like-active");
+function addLike(evt) {
+  evt.target.closest(".card__like").classList.toggle("card__like-active");
 }
 
 function createCard(cardData) {
@@ -126,10 +125,10 @@ function createCard(cardData) {
   likeButton.addEventListener("click", addLike);
 
   cardImage.addEventListener("click", function () {
+    openPopup(imageCardModal);
     popupOpenSubtitle.textContent = cardData.name;
     popupOpenPhoto.src = cardData.link;
     popupOpenPhoto.alt = popupOpenSubtitle.textContent;
-    toggleModal(imageCardModal);
   });
 
   return cardElement;
@@ -145,9 +144,9 @@ initialCards.forEach(item => {
 });
 
 // события
-closeModalEditButton.addEventListener("click", () => toggleModal(editModal));
+closeModalEditButton.addEventListener("click", () => closePopup(editModal));
 
-addCardButton.addEventListener("click", () => toggleModal(addCardModal));
-closeAddCardButton.addEventListener("click", () => toggleModal(addCardModal));
+addCardButton.addEventListener("click", () => openPopup(addCardModal));
+closeAddCardButton.addEventListener("click", () => closePopup(addCardModal));
 
-closeImageCard.addEventListener("click", () => toggleModal(imageCardModal));
+closeImageCard.addEventListener("click", () => closePopup(imageCardModal));
