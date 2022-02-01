@@ -49,7 +49,7 @@ document.addEventListener("keydown", closePopupEsc);
 }
 
 //закрытие попапа
-function closePopup(popup){
+function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("mousedown", closePopupOverlay); 
   document.removeEventListener("keydown", closePopupEsc);
