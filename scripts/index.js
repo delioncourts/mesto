@@ -53,7 +53,6 @@ buttonSave.classList.add("popup__save_disabled");
 //закрытие попапа
 function closePopup(popup){
   popup.classList.remove("popup_opened");
-  document.removeEventListener("mousedown", closePopupOverlay); 
   document.removeEventListener("keydown", closePopupEsc);
 }
 
