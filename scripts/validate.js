@@ -1,3 +1,9 @@
+// сброс стандартной формы
+
+function submitFormHandler(evt) {
+  evt.preventDefault();
+}
+
 // показать ошибку
 function showInputError(inputElement, form) {
   const errorElement = document.querySelector("#" + inputElement.id + "-error");
@@ -41,9 +47,7 @@ function enableValidation(form) {
   const formList = [...document.querySelectorAll(form.formSelector)];
 
   formList.forEach((formElement) => {
-      formElement.addEventListener("submit", (evt) => {
-          evt.preventDefault();
-      });
+      formElement.addEventListener("submit", submitFormHandler);
 
       const inputList = Array.from(formElement.querySelectorAll(form.inputSelector));
       const button = formElement.querySelector(form.submitButtonSelector);
@@ -67,3 +71,12 @@ enableValidation({
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 });
+
+const hideClass = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save",
+  inactiveButtonClass: "popup__save_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+}

@@ -11,7 +11,7 @@ const imageCardModal = document.querySelector(".popup_type_open-card");
 
 //формы
 const addCardForm = addCardModal.querySelector(".popup__form");
-const profileForm = editModal.querySelector(".popup__form");
+const profileForm = editModal.querySelector(".popup__form_edit");
 
 //кнопки
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -48,6 +48,8 @@ document.addEventListener("mousedown", closePopupOverlay);
 document.addEventListener("keydown", closePopupEsc);
 buttonSave.setAttribute("disabled", true);
 buttonSave.classList.add("popup__save_disabled");
+hideInputError(nameInput, hideClass);
+hideInputError(jobInput, hideClass);
 }
 
 //закрытие попапа
@@ -83,11 +85,11 @@ addCardForm.addEventListener("submit", (event) => {
     name: inputCardName.value,
     link: inputCardLink.value,
   });
+  buttonSave.setAttribute("disabled", true);
+  buttonSave.classList.add("popup__save_disabled");
   renderCard(card); 
   addCardForm.reset();
   closePopup(addCardModal);
-  //inputCardName.value = "";
-  //inputCardLink.value = "";
 });
 
 //редактирование профиля
@@ -95,6 +97,7 @@ function submitProfileForm(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
+  profileForm.reset();
   closePopup(editModal);
 }
 
