@@ -43,8 +43,11 @@
             <form class="popup__form" name="edit" novalidate>
                 <input class="popup__input popup__input_type_name" type="text" placeholder="Ваше имя" id="name"
                     name="name" minlength="2" maxlength="40" required>
+                <span class="popup__error" id="name-error"></span>
+
                 <input class="popup__input popup__input_type_job" type="text" placeholder="Описание" id="description"
-                    name="description" minlength="2" maxlength="200" required>
+                name="description" minlength="2" maxlength="200" required>
+                <span class="popup__error" id="description-error"></span>
                 <button class="popup__save" type="submit">Сохранить</button>
             </form>
             <button class="popup__close" aria-label="закрыть" type="button"></button>
@@ -65,8 +68,10 @@
             <form class="popup__form" name="addcard" novalidate>
                 <input class="popup__input popup__input_type_card-name" type="text" placeholder="Название"
                     id="card-name" name="card-name" minlength="2" maxlength="30" required>
+                <span class="popup__error" id="card-name-error"></span>
                 <input class="popup__input popup__input_type_card-link" type="url" placeholder="Ссылка на картинку"
                     id="link" name="link" required>
+                <span class="popup__error" id="link-error"></span>
                 <button class="popup__save popup__create-card" type="submit">Сохранить</button>
             </form>
             <button class="popup__close" aria-label="закрыть" type="button"></button>

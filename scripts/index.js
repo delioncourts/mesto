@@ -11,7 +11,7 @@ const imageCardModal = document.querySelector(".popup_type_open-card");
 
 //формы
 const addCardForm = addCardModal.querySelector(".popup__form");
-const profileForm = editModal.querySelector(".popup__form")
+const profileForm = editModal.querySelector(".popup__form");
 
 //кнопки
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -35,8 +35,8 @@ const cardTemplate = document.querySelector(".card-template").content;
 const popupOpenPhoto = document.querySelector(".popup__open-photo");
 const popupOpenSubtitle = document.querySelector(".popup__open-photo-subtitle");
 
-//попап
-const popup = document.querySelector(".popup");
+// сохранение
+const buttonSave = document.querySelector(".popup__save");
 
 // открытие и закрытие попапов при помощи toggle
 //function toggleModal(modal) {modal.classList.toggle("popup_opened")}
@@ -46,10 +46,12 @@ function openPopup(popup) {
 popup.classList.add("popup_opened");
 document.addEventListener("mousedown", closePopupOverlay); 
 document.addEventListener("keydown", closePopupEsc);
+buttonSave.setAttribute("disabled", true);
+buttonSave.classList.add("popup__save_disabled");
 }
 
 //закрытие попапа
-function closePopup(popup) {
+function closePopup(popup){
   popup.classList.remove("popup_opened");
   document.removeEventListener("mousedown", closePopupOverlay); 
   document.removeEventListener("keydown", closePopupEsc);
@@ -58,15 +60,15 @@ function closePopup(popup) {
 //закрытие по оверлею
 function closePopupOverlay(evt) {
   if (evt.target.classList.contains("popup")){
-    closePopup(document.querySelector(".popup_opened"))
+    closePopup(document.querySelector(".popup_opened"));
   }
-};
+}
 
 //закрытие по Esc
 function closePopupEsc(evt) {
   if (evt.key === "Escape")
-  closePopup(document.querySelector(".popup_opened"))
-};
+  closePopup(document.querySelector(".popup_opened"));
+}
 
 // профиль
 editProfileButton.addEventListener("click", () => {

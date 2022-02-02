@@ -1,83 +1,69 @@
-//const form = document.querySelector('.form');
-//const formInput = form.querySelector('.form__input');
-//const formError = form.querySelector(`.${formInput.id}-error`);ё
-
-// отмена стандартного поведения браузера
-function submitForm(evt) {
-  evt.preverntDefault();
-}
-//показать сообщение об ошибке
-function showInputError(inputElement, errorElement, {inputErrorClass, errorClass}) {
-  //const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add(inputErrorClass);
-  errorElement.classList.add(errorClass);
-  errorElement.textContent = inputElement.validationMessage;
+// показать ошибку
+function showInputError(inputElement, form) {
+  const errorElement = document.querySelector("#" + inputElement.id + "-error");
+  const errorMessage = inputElement.validationMessage;
+  errorElement.textContent = errorMessage;
+  inputElement.classList.add(form.inputErrorClass);
 }
 
-//скрыть сообщение об ошибке
-function hideInputError(inputElement, errorElement, {inputErrorClass, errorClass}) {
-  //const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove(inputErrorClass);
-  errorElement.classList.remove(errorClass);
-  errorElement.textContent = '';
-};
+// скрыть ошибку
+function hideInputError(inputElement, form) {
+  const errorElement = document.querySelector("#" + inputElement.id + "-error");
+  errorElement.textContent = "";
+  inputElement.classList.remove(form.inputErrorClass);
+}
 
-//проверка кнопки
-function toggleButtonState(formElement, {submitButtonSelector, inactiveButtonClass}) {
-  const submitButton = formElement.querySelector(submitButtonSelector);
-  const checkFormValidity = formElement.checkValidity();
-  if (!checkFormValidity) {
-    submitButton.classList.add(inactiveButtonClass);
-    submitButton.setAttribute("disabled", "");
+// меняет состояние кнопки
+function toggleButtonState(button, inputElements, form) {
+  const formValid = inputElements.every((inputElement) => {
+      return inputElement.validity.valid;
+  });
+  if (formValid) {
+      button.classList.remove(form.inactiveButtonClass);
+      button.removeAttribute("disabled");
   } else {
-    submitButton.classList.remove(inactiveButtonClass);
-    submitButton.removeAttribute("disabled");
+      button.classList.add(form.inactiveButtonClass);
+      button.setAttribute("disabled", "");
   }
-}; 
+}
 
-//проверить валидность элемента
-function checkInputValidity(formElement, inputElement, classes) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-
+// проверить валидность
+function checkInputValidity(inputElement, form) {
   if (!inputElement.validity.valid) {
-    showInputError(inputElement, errorElement, classes);
+      showInputError(inputElement, form);
   } else {
-    hideInputError(inputElement, errorElement, classes);
-  };
-  toggleButtonState(formElement, classes);
-};
+      hideInputError(inputElement, form);
+  }
+}
 
-//добавить слушатель
-const setEventListeners = (formElement, { inputSelector, ...rest}) => {
-  const inputList = formElement.querySelectorAll(inputSelector);
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement, rest);
-      toggleButtonState(formElement, rest);
-    });
-  });
-};
-// запуск валидации
-function enableValidation( {formSelector, inputSelector, ...rest}) {
-  const formList = document.querySelectorAll(formSelector); 
+// валидация формы
+function enableValidation(form) {
+  const formList = [...document.querySelectorAll(form.formSelector)];
+
   formList.forEach((formElement) => {
-  formElement.addEventListener("submit", submitForm);
-  const inputList = formElement.querySelectorAll(inputSelector);
-  inputList.forEach(inputElement => {
-    inputElement.addEventListener("input", () => {
-      checkInputValidity(formElement, inputElement, rest);
-    });
-  });
-  toggleButtonState(formElement, rest);
-}); 
-};
+      formElement.addEventListener("submit", (evt) => {
+          evt.preventDefault();
+      });
 
-//валидация
-enableValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__save',
-    inactiveButtonClass: 'popup__save_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
+      const inputList = Array.from(formElement.querySelectorAll(form.inputSelector));
+      const button = formElement.querySelector(form.submitButtonSelector);
+
+      inputList.forEach((inputElement) => {
+          inputElement.addEventListener("input", () => {
+              checkInputValidity(inputElement, form);
+              toggleButtonState(button, inputList, form);
+          });
+      });
+
+      toggleButtonState(button, inputList, form);
   });
+}
+
+enableValidation({
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save",
+  inactiveButtonClass: "popup__save_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+});
