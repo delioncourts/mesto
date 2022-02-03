@@ -10,7 +10,7 @@ const addCardModal = document.querySelector(".popup_type_add-card");
 const imageCardModal = document.querySelector(".popup_type_open-card");
 
 //формы
-const addCardForm = addCardModal.querySelector(".popup__form");
+const addCardForm = addCardModal.querySelector(".popup__form_add-card");
 const profileForm = editModal.querySelector(".popup__form_edit");
 
 //кнопки
@@ -48,9 +48,23 @@ document.addEventListener("mousedown", closePopupOverlay);
 document.addEventListener("keydown", closePopupEsc);
 buttonSave.setAttribute("disabled", true);
 buttonSave.classList.add("popup__save_disabled");
-hideInputError(nameInput, hideClass);
-hideInputError(jobInput, hideClass);
 }
+
+
+//скрыть ошибки
+function hideError(popup) {
+  const inputPopup = popup.querySelectorAll(".popup__input");
+  const errorPopup = popup.querySelectorAll(".popup__error");
+
+  inputPopup.forEach((input) => {
+    input.classList.remove("popup__input_type_error");
+  });
+
+  errorPopup.forEach((errorElement) => {
+    errorElement.classList.remove("popup__input_type_error");
+    errorElement.textContent = "";
+  })
+};
 
 //закрытие попапа
 function closePopup(popup){
@@ -73,9 +87,10 @@ function closePopupEsc(evt) {
 
 // профиль
 editProfileButton.addEventListener("click", () => {
-  openPopup(editModal);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
+  openPopup(editModal);
+  hideError(editModal);
 });
 
 // добавить карточку
@@ -85,8 +100,6 @@ addCardForm.addEventListener("submit", (event) => {
     name: inputCardName.value,
     link: inputCardLink.value,
   });
-  buttonSave.setAttribute("disabled", true);
-  buttonSave.classList.add("popup__save_disabled");
   renderCard(card); 
   addCardForm.reset();
   closePopup(addCardModal);
@@ -97,7 +110,7 @@ function submitProfileForm(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-  profileForm.reset();
+
   closePopup(editModal);
 }
 
@@ -150,7 +163,11 @@ initialCards.forEach(item => {
 // события
 closeModalEditButton.addEventListener("click", () => closePopup(editModal));
 
-addCardButton.addEventListener("click", () => openPopup(addCardModal));
+addCardButton.addEventListener("click", () => {
+  openPopup(addCardModal);
+  hideError(addCardModal);
+});
+
 closeAddCardButton.addEventListener("click", () => closePopup(addCardModal));
 
 closeImageCard.addEventListener("click", () => closePopup(imageCardModal));
