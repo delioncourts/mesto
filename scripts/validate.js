@@ -25,10 +25,10 @@ function toggleButtonState(button, inputElements, form) {
       return inputElement.validity.valid;
   });
   if (formValid) {
-      button.classList.remove(form.inactiveButtonClass);
+     button.classList.remove(form.inactiveButtonClass);
       button.removeAttribute("disabled");
-  } else {
-      button.classList.add(form.inactiveButtonClass);
+ } else {
+     button.classList.add(form.inactiveButtonClass);
       button.setAttribute("disabled", "");
   }
 }
@@ -71,12 +71,3 @@ enableValidation({
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 });
-
-const hideClass = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save",
-  inactiveButtonClass: "popup__save_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-}

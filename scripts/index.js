@@ -10,8 +10,8 @@ const addCardModal = document.querySelector(".popup_type_add-card");
 const imageCardModal = document.querySelector(".popup_type_open-card");
 
 //формы
-const addCardForm = addCardModal.querySelector(".popup__form_add-card");
-const profileForm = editModal.querySelector(".popup__form_edit");
+const addCardForm = addCardModal.querySelector(".popup__form");
+const profileForm = editModal.querySelector(".popup__form");
 
 //кнопки
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -46,8 +46,8 @@ function openPopup(popup) {
 popup.classList.add("popup_opened");
 document.addEventListener("mousedown", closePopupOverlay); 
 document.addEventListener("keydown", closePopupEsc);
-buttonSave.setAttribute("disabled", true);
-buttonSave.classList.add("popup__save_disabled");
+//buttonSave.setAttribute("disabled", true);
+//buttonSave.classList.add("popup__save_disabled");
 }
 
 
@@ -70,6 +70,8 @@ function hideError(popup) {
 function closePopup(popup){
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", closePopupEsc);
+buttonSave.setAttribute("disabled", true);
+buttonSave.classList.add("popup__save_disabled");
 }
 
 //закрытие по оверлею
@@ -85,25 +87,10 @@ function closePopupEsc(evt) {
   closePopup(document.querySelector(".popup_opened"));
 }
 
-// профиль
-editProfileButton.addEventListener("click", () => {
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileSubtitle.textContent;
-  openPopup(editModal);
-  hideError(editModal);
-});
-
-// добавить карточку
-addCardForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const card = createCard({
-    name: inputCardName.value,
-    link: inputCardLink.value,
-  });
-  renderCard(card); 
-  addCardForm.reset();
-  closePopup(addCardModal);
-});
+//очистить форму
+function resetForm(form) {
+  form.reset();
+}
 
 //редактирование профиля
 function submitProfileForm(evt) {
@@ -113,8 +100,6 @@ function submitProfileForm(evt) {
 
   closePopup(editModal);
 }
-
-profileForm.addEventListener('submit', submitProfileForm);
 
 // удалить карточку
 function deleteCard(evt) {
@@ -161,11 +146,36 @@ initialCards.forEach(item => {
 });
 
 // события
+
+// профиль
+editProfileButton.addEventListener("click", () => {
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileSubtitle.textContent;
+  openPopup(editModal);
+  hideError(editModal);
+});
+
+profileForm.addEventListener('submit', submitProfileForm);
+
+// добавить карточку
+addCardForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const card = createCard({
+    name: inputCardName.value,
+    link: inputCardLink.value,
+  });
+  renderCard(card); 
+  closePopup(addCardModal);
+  addCardForm.reset();
+  //resetForm(addCardForm);
+});
+
 closeModalEditButton.addEventListener("click", () => closePopup(editModal));
 
 addCardButton.addEventListener("click", () => {
   openPopup(addCardModal);
   hideError(addCardModal);
+  addCardForm.reset();
 });
 
 closeAddCardButton.addEventListener("click", () => closePopup(addCardModal));
