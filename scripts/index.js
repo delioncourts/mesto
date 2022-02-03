@@ -10,8 +10,8 @@ const addCardModal = document.querySelector(".popup_type_add-card");
 const imageCardModal = document.querySelector(".popup_type_open-card");
 
 //формы
-const addCardForm = addCardModal.querySelector(".popup__form");
-const profileForm = editModal.querySelector(".popup__form");
+const addCardForm = addCardModal.querySelector(".popup__form_add-card");
+const profileForm = editModal.querySelector(".popup__form_edit");
 
 //кнопки
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -163,7 +163,7 @@ addCardForm.addEventListener("submit", (event) => {
   });
   renderCard(card); 
   closePopup(addCardModal);
-  addCardForm.reset();
+  //addCardForm.reset();
 });
 
 closeModalEditButton.addEventListener("click", () => closePopup(editModal));
@@ -171,7 +171,6 @@ closeModalEditButton.addEventListener("click", () => closePopup(editModal));
 addCardButton.addEventListener("click", () => {
   openPopup(addCardModal);
   hideError(addCardModal);
-  addCardForm.reset();
 });
 
 closeAddCardButton.addEventListener("click", () => closePopup(addCardModal));

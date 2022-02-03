@@ -27,9 +27,11 @@ function toggleButtonState(button, inputElements, form) {
   if (formValid) {
     button.classList.remove(form.inactiveButtonClass);
     button.removeAttribute("disabled");
+
  } else {
     button.classList.add(form.inactiveButtonClass);
-  button.setAttribute("disabled", "");
+    button.setAttribute("disabled", "");
+
  }
 }
 
@@ -47,7 +49,9 @@ function enableValidation(form) {
   const formList = [...document.querySelectorAll(form.formSelector)];
 
   formList.forEach((formElement) => {
-      formElement.addEventListener("submit", submitFormHandler);
+      formElement.addEventListener("submit", evt => {
+        evt.preventDefault();
+      })
 
       const inputList = Array.from(formElement.querySelectorAll(form.inputSelector));
       const button = formElement.querySelector(form.submitButtonSelector);
