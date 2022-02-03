@@ -25,12 +25,12 @@ function toggleButtonState(button, inputElements, form) {
       return inputElement.validity.valid;
   });
   if (formValid) {
-     button.classList.remove(form.inactiveButtonClass);
-      button.removeAttribute("disabled");
+    button.classList.remove(form.inactiveButtonClass);
+    button.removeAttribute("disabled");
  } else {
-     button.classList.add(form.inactiveButtonClass);
-      button.setAttribute("disabled", "");
-  }
+    button.classList.add(form.inactiveButtonClass);
+  button.setAttribute("disabled", "");
+ }
 }
 
 // проверить валидность

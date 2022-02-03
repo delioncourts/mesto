@@ -46,8 +46,8 @@ function openPopup(popup) {
 popup.classList.add("popup_opened");
 document.addEventListener("mousedown", closePopupOverlay); 
 document.addEventListener("keydown", closePopupEsc);
-//buttonSave.setAttribute("disabled", true);
-//buttonSave.classList.add("popup__save_disabled");
+buttonSave.setAttribute("disabled", true);
+buttonSave.classList.add("popup__save_disabled");
 }
 
 
@@ -70,8 +70,6 @@ function hideError(popup) {
 function closePopup(popup){
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", closePopupEsc);
-buttonSave.setAttribute("disabled", true);
-buttonSave.classList.add("popup__save_disabled");
 }
 
 //закрытие по оверлею
@@ -97,7 +95,6 @@ function submitProfileForm(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-
   closePopup(editModal);
 }
 
@@ -149,9 +146,9 @@ initialCards.forEach(item => {
 
 // профиль
 editProfileButton.addEventListener("click", () => {
+  openPopup(editModal);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-  openPopup(editModal);
   hideError(editModal);
 });
 
@@ -167,7 +164,6 @@ addCardForm.addEventListener("submit", (event) => {
   renderCard(card); 
   closePopup(addCardModal);
   addCardForm.reset();
-  //resetForm(addCardForm);
 });
 
 closeModalEditButton.addEventListener("click", () => closePopup(editModal));
