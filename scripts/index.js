@@ -36,7 +36,9 @@ const popupOpenPhoto = document.querySelector(".popup__open-photo");
 const popupOpenSubtitle = document.querySelector(".popup__open-photo-subtitle");
 
 // сохранение
-const buttonSave = document.querySelector(".popup__save");
+const popupCardsContainer = addCardModal.querySelector(".popup__container");
+const popupCardsForm = popupCardsContainer.querySelector(".popup__form");
+const buttonSave = popupCardsForm.querySelector(".popup__save");
 
 // открытие и закрытие попапов при помощи toggle
 //function toggleModal(modal) {modal.classList.toggle("popup_opened")}
@@ -49,7 +51,6 @@ document.addEventListener("keydown", closePopupEsc);
 buttonSave.setAttribute("disabled", true);
 buttonSave.classList.add("popup__save_disabled");
 }
-
 
 //скрыть ошибки
 function hideError(popup) {
@@ -83,11 +84,6 @@ function closePopupOverlay(evt) {
 function closePopupEsc(evt) {
   if (evt.key === "Escape")
   closePopup(document.querySelector(".popup_opened"));
-}
-
-//очистить форму
-function resetForm(form) {
-  form.reset();
 }
 
 //редактирование профиля
@@ -163,7 +159,7 @@ addCardForm.addEventListener("submit", (event) => {
   });
   renderCard(card); 
   closePopup(addCardModal);
-  //addCardForm.reset();
+  addCardForm.reset();
 });
 
 closeModalEditButton.addEventListener("click", () => closePopup(editModal));
