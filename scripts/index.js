@@ -1,3 +1,8 @@
+import { initialCards, validationConfig, imageCardModal, popupOpenPhoto, popupOpenSubtitle } from "./constants.js"
+import { FormValidator } from "./FormValidator.js"
+import { openPopup, closePopupOverlay, closePopupEsc } from "./utils.js"
+import { Card } from "./Card.js"
+
 //профиль
 
 const nameInput = document.querySelector(".popup__input_type_name");
@@ -20,7 +25,6 @@ const closeModalEditButton = editModal.querySelector(".popup__close");
 const addCardButton = document.querySelector(".profile__add-button");
 const closeAddCardButton = addCardModal.querySelector(".popup__close");
 
-const openImageCard = document.querySelector(".popup__container-open");
 const closeImageCard = imageCardModal.querySelector(".popup__close");
 
 // инпуты
@@ -29,11 +33,7 @@ const inputCardLink = document.querySelector(".popup__input_type_card-link");
 
 // ADD CARD
 const cardList = document.querySelector(".cards__grid");
-const cardTemplate = document.querySelector(".card-template").content;
-
-// открытая карточка
-const popupOpenPhoto = document.querySelector(".popup__open-photo");
-const popupOpenSubtitle = document.querySelector(".popup__open-photo-subtitle");
+const cardTemplateSelector = ".card-template";
 
 // сохранение
 const popupCardsContainer = addCardModal.querySelector(".popup__container");
@@ -43,35 +43,14 @@ const buttonSave = popupCardsForm.querySelector(".popup__save");
 // открытие и закрытие попапов при помощи toggle
 //function toggleModal(modal) {modal.classList.toggle("popup_opened")}
 
-//открытие попапа 
-function openPopup(popup) {
-popup.classList.add("popup_opened");
-document.addEventListener("mousedown", closePopupOverlay); 
-document.addEventListener("keydown", closePopupEsc);
-buttonSave.setAttribute("disabled", true);
-buttonSave.classList.add("popup__save_disabled");
-}
 
-//скрыть ошибки
-function hideError(popup) {
-  const inputPopup = popup.querySelectorAll(".popup__input");
-  const errorPopup = popup.querySelectorAll(".popup__error");
+const editFormValid = new FormValidator(validationConfig, profileForm)
+const addCardFormValid = new FormValidator(validationConfig, addCardForm)
 
-  inputPopup.forEach((input) => {
-    input.classList.remove("popup__input_type_error");
-  });
+editFormValid.enableValidation();
+addCardFormValid.enableValidation();
 
-  errorPopup.forEach((errorElement) => {
-    errorElement.classList.remove("popup__input_type_error");
-    errorElement.textContent = "";
-  })
-};
 
-//закрытие попапа
-function closePopup(popup){
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupEsc);
-}
 
 //закрытие по оверлею
 function closePopupOverlay(evt) {
@@ -94,51 +73,17 @@ function submitProfileForm(evt) {
   closePopup(editModal);
 }
 
-// удалить карточку
-function deleteCard(evt) {
-  evt.target.closest(".card").remove();
+
+const renderCard = (data, wrap) => { 
+  const card = new Card (data, cardTemplateSelector)
+  const cardElement = card.getCardElement();
+  wrap.prepend(cardElement)
 }
 
-// поставить лайк
-function addLike(evt) {
-  evt.target.closest(".card__like").classList.toggle("card__like-active");
-}
-
-function createCard(cardData) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector(".card__image");
-  const cardTitle = cardElement.querySelector(".card__title");
-  const deleteButton = cardElement.querySelector(".card__delete");
-  const likeButton = cardElement.querySelector(".card__like");
-
-  cardTitle.textContent = cardData.name;
-  cardImage.src = cardData.link;
-  cardImage.alt = cardTitle.textContent;
-
-  deleteButton.addEventListener("click", deleteCard);
-
-  likeButton.addEventListener("click", addLike);
-
-  cardImage.addEventListener("click", function () {
-    openPopup(imageCardModal);
-    popupOpenSubtitle.textContent = cardData.name;
-    popupOpenPhoto.src = cardData.link;
-    popupOpenPhoto.alt = popupOpenSubtitle.textContent;
-  });
-
-  return cardElement;
-}
-
-function renderCard(card) { 
-  cardList.prepend(card); 
-}
-
-initialCards.forEach(item => {
-  const card = createCard(item);
-  renderCard(card);
+initialCards.forEach((data) => {
+  renderCard(data, cardList);
 });
 
-// события
 
 // профиль
 editProfileButton.addEventListener("click", () => {
@@ -153,7 +98,7 @@ profileForm.addEventListener('submit', submitProfileForm);
 // добавить карточку
 addCardForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  const card = createCard({
+  const card = getCardElement({
     name: inputCardName.value,
     link: inputCardLink.value,
   });
