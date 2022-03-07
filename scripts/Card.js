@@ -34,7 +34,7 @@ export class Card {
       }
 
       _fillCard = () => {
-        this._cardTitle.textContent = this._name;
+        this._cardElement.querySelector(".card__title").textContent = this._name;
         this._cardImage.src = this._link;
         this._cardImage.alt = this._name;
       }
@@ -43,7 +43,6 @@ export class Card {
         this._cardElement = this._template.cloneNode(true);
 
         this._cardImage = this._cardElement.querySelector(".card__image");
-        this.cardTitle = this._cardElement.querySelector(".card__title");
         this._deleteButton = this._cardElement.querySelector(".card__delete");
         this._likeButton = this._cardElement.querySelector(".card__like");
       

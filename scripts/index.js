@@ -60,14 +60,13 @@ function submitProfileForm(evt) {
 
 
 const renderCard = (data) => { 
-  const card = new Card (data, cardTemplateSelector)
+  const card = new Card(data, cardTemplateSelector);
   const cardElement = card.getCardElement();
   document.querySelector(".cards__grid").prepend(cardElement)
 }
 
-initialCards.forEach((data) => {
-  renderCard(data, cardList);
-});
+initialCards.forEach(renderCard);
+//((data) => {renderCard(data, cardList);});
 
 
 // профиль
