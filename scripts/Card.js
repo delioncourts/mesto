@@ -11,12 +11,13 @@ export class Card {
     }
 
     _addLike = () => {
-        this._likeButton.target.closest(".card__like").classList.toggle("card__like-active");
+        this._likeButton.classList.toggle("card__like-active");
       }
       
 
-      _deleteCard = () => {
+    _handleDeleteCard = () => {
         this._cardElement.remove();
+        this._cardElement = null;
       }
 
       _previewPicture = () => {
@@ -28,7 +29,7 @@ export class Card {
 
 
       _setEventListeners = () => {
-        this._deleteButton.addEventListener("click", this._deleteCard);
+        this._deleteButton.addEventListener("click", this._handleDeleteCard);
         this._likeButton.addEventListener("click", this._addLike);
         this._cardImage.addEventListener("click", this._previewPicture);
       }

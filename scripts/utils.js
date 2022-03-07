@@ -4,6 +4,12 @@ export function openPopup(popup) {
     document.addEventListener("keydown", closePopupEsc);
     }
 
+export function closePopup(popup) {
+    popup.classList.remove("popup_opened");
+    document.removeEventListener("mousedown", closePopupOverlay); 
+    document.removeEventListener("keydown", closePopupEsc);
+    }
+    
 //закрытие по оверлею
 export function closePopupOverlay(evt) {
         if (evt.target.classList.contains("popup")){
