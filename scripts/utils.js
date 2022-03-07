@@ -2,8 +2,6 @@ export function openPopup(popup) {
     popup.classList.add("popup_opened");
     document.addEventListener("mousedown", closePopupOverlay); 
     document.addEventListener("keydown", closePopupEsc);
-    buttonSave.setAttribute("disabled", true);
-    buttonSave.classList.add("popup__save_disabled");
     }
 
 //закрытие по оверлею
