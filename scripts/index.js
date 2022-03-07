@@ -51,20 +51,6 @@ editFormValid.enableValidation();
 addCardFormValid.enableValidation();
 
 
-
-//закрытие по оверлею
-function closePopupOverlay(evt) {
-  if (evt.target.classList.contains("popup")){
-    closePopup(document.querySelector(".popup_opened"));
-  }
-}
-
-//закрытие по Esc
-function closePopupEsc(evt) {
-  if (evt.key === "Escape")
-  closePopup(document.querySelector(".popup_opened"));
-}
-
 //редактирование профиля
 function submitProfileForm(evt) {
   evt.preventDefault();

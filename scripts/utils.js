@@ -6,13 +6,14 @@ export function openPopup(popup) {
     buttonSave.classList.add("popup__save_disabled");
     }
 
+//закрытие по оверлею
 export function closePopupOverlay(evt) {
         if (evt.target.classList.contains("popup")){
           closePopup(document.querySelector(".popup_opened"));
         }
       }
       
-      //закрытие по Esc
+//закрытие по Esc
 export function closePopupEsc(evt) {
         if (evt.key === "Escape")
         closePopup(document.querySelector(".popup_opened"));
