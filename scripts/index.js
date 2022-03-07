@@ -59,10 +59,10 @@ function submitProfileForm(evt) {
 }
 
 
-const renderCard = (data, wrap) => { 
+const renderCard = (data) => { 
   const card = new Card (data, cardTemplateSelector)
   const cardElement = card.getCardElement();
-  wrap.prepend(cardElement)
+  document.querySelector(".cards__grid").prepend(cardElement)
 }
 
 initialCards.forEach((data) => {
