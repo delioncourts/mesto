@@ -12,7 +12,6 @@ const profileSubtitle = document.querySelector(".profile__subtitle");
 
 const editModal = document.querySelector(".popup_type_edit");
 const addCardModal = document.querySelector(".popup_type_add-card");
-const imageCardModal = document.querySelector(".popup_type_open-card");
 
 //формы
 const addCardForm = addCardModal.querySelector(".popup__form_add-card");
