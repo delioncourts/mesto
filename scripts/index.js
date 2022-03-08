@@ -52,7 +52,7 @@ const validationConfig = {
   errorClass: "popup__error_visible",
 };
 
-function createCard(item)) {
+function createCard(item) {
   const card = new Card(item, cardTemplateSelector, handleCardClick);
   const cardElement = card.getCardElement();
   return cardElement;

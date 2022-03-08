@@ -3,8 +3,7 @@ import { imageCardModal, popupOpenPhoto, popupOpenSubtitle } from "./constants.j
 import { handleCardClick } from "./index.js"
 
 export class Card {
-    constructor(data, cardTemplateSelector, handleCardClick) {
-        //this._data = data; 
+    constructor( { data, handleCardClick }, cardTemplateSelector) {
         this._name = data.name;
         this._link = data.link;
         this._template = document.querySelector(cardTemplateSelector).content;
@@ -16,9 +15,10 @@ export class Card {
       }
       
 
-    _handleDeleteCard = () => {
-        this._cardElement.remove();
-        this._cardElement = null;
+    _handleDeleteCard(evt) {
+      evt.target.closest(".card").remove()
+        //this._cardElement.remove();
+       // this._cardElement = null;
       }
 
       _setEventListeners = () => {

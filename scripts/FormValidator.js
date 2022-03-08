@@ -41,7 +41,7 @@ export class FormValidator {
         return !inputElement.validity.valid;
       });
     };
-  
+
     disableSubmitButton = () => {
       const { inactiveButtonClass } = this._settings;
       this._buttonElement.classList.add(inactiveButtonClass);
