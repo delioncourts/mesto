@@ -1,9 +1,10 @@
 import { initialCards, imageCardModal, popupOpenPhoto, popupOpenSubtitle } from "./constants.js"
 import { FormValidator } from "./FormValidator.js"
-import { openPopup, closePopup, closePopupOverlay, closePopupEsc } from "./utils.js"
+import { openPopup, closePopup, closePopupEsc } from "./utils.js"
 import { Card } from "./Card.js"
 
 //профиль
+
 
 const popupType = document.querySelectorAll(".popup")
 const nameInput = document.querySelector(".popup__input_type_name");
@@ -40,8 +41,12 @@ const popupCardsContainer = addCardModal.querySelector(".popup__container");
 const popupCardsForm = popupCardsContainer.querySelector(".popup__form");
 const buttonSave = popupCardsForm.querySelector(".popup__save");
 
-// открытие и закрытие попапов при помощи toggle
-//function toggleModal(modal) {modal.classList.toggle("popup_opened")}
+function handleCardClick(name, link) {
+  popupOpenSubtitle.textContent = this._name;
+  popupOpenPhoto.src = this._link;
+  popupOpenPhoto.alt = this._name;
+  openPopup(imageCardModal);
+}
 
 const validationConfig = {
   formSelector: ".popup__form",
@@ -52,20 +57,16 @@ const validationConfig = {
   errorClass: "popup__error_visible",
 };
 
-function createCard(item) {
-  const card = new Card(item, cardTemplateSelector, handleCardClick);
-  const cardElement = card.getCardElement();
-  return cardElement;
-}
+// открытие и закрытие попапов при помощи toggle
+//function toggleModal(modal) {modal.classList.toggle("popup_opened")}
+
 
 const renderCard = (data) => { 
-  const element = createCard(data);
-  return element;
+  const card = new Card(data, cardTemplateSelector); 
+  const cardElement = card.getCardElement(); 
+  document.querySelector(".cards__grid").prepend(cardElement) 
 }
-
-section.prepend(createCard(item)); 
-
-initialCards.forEach(renderCard);
+initialCards.forEach(renderCard); 
 
 const editFormValid = new FormValidator(validationConfig, profileForm)
 const addCardFormValid = new FormValidator(validationConfig, addCardForm)
@@ -73,18 +74,10 @@ const addCardFormValid = new FormValidator(validationConfig, addCardForm)
 editFormValid.enableValidation();
 addCardFormValid.enableValidation();
 
-
-function handleCardClick(name, link) {
-  popupOpenSubtitle.textContent = this._name;
-  popupOpenPhoto.src = this._link;
-  popupOpenPhoto.alt = this._name;
-  openPopup(imageCardModal);
-}
-
 //редактирование профиля
 function submitCardHandler(evt) {
   evt.preventDefault();
-  renderCard ({
+  createCard ({
     name: inputCardName.value,
     link: inputCardLink.value
   })
@@ -115,6 +108,7 @@ function submitProfileForm(evt) {
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
   closePopup(editModal);
+  //formReset(submitProfileForm);
 }
 
 profileForm.addEventListener('submit', submitProfileForm);

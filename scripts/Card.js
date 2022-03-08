@@ -1,9 +1,9 @@
 import { openPopup } from "./utils.js";
 import { imageCardModal, popupOpenPhoto, popupOpenSubtitle } from "./constants.js"
-import { handleCardClick } from "./index.js"
+//import { handleCardClick } from "./index.js"
 
 export class Card {
-    constructor( { data, handleCardClick }, cardTemplateSelector) {
+    constructor(data, cardTemplateSelector, handleCardClick) {
         this._name = data.name;
         this._link = data.link;
         this._template = document.querySelector(cardTemplateSelector).content;

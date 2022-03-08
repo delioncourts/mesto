@@ -4,12 +4,20 @@ export class FormValidator {
       this._settings = settings;
       this._inputList = Array.from(this._form.querySelectorAll(this._settings.inputSelector));
       this._buttonElement = this._form.querySelector(
-        this._settings.submitButtonSelector
-      );
+        this._settings.submitButtonSelector)
+
+    this._formSelector = settings.formSelector;
+    this._inputSelector = settings.inputSelector;
+    this._submitButtonSelector = settings.submitButtonSelector;
+    this._inactiveButtonClass = settings.inactiveButtonClass;
+    this._inputErrorClass = settings.inputErrorClass;
+    this._errorClass = settings.errorClass;
+      
     }
   
     _showInputError = (inputElement, errorMessage) => {
-      const {inputErrorClass, errorClass} = this._settings;
+      const inputErrorClass = this._inputErrorClass
+      const errorClass = this._errorClass;
       const errorElement = this._form.querySelector(
         //'#${inputElement.id}-error');
         "#" + inputElement.id + "-error")
@@ -20,7 +28,8 @@ export class FormValidator {
   
     // скрыть ошибку
     _hideInputError = (inputElement) => {
-      const {errorClass, inputErrorClass} = this._settings;
+      const inputErrorClass = this._inputErrorClass
+      const errorClass = this._errorClass;
   
       const errorElement = this._form.querySelector("#" + inputElement.id + "-error");
       inputElement.classList.remove(inputErrorClass);
@@ -43,13 +52,13 @@ export class FormValidator {
     };
 
     disableSubmitButton = () => {
-      const { inactiveButtonClass } = this._settings;
+      const inactiveButtonClass = this._inactiveButtonClass;
       this._buttonElement.classList.add(inactiveButtonClass);
       this._buttonElement.disabled = true;
     };
   
     _enableSubmitButton = () => {
-      const { inactiveButtonClass } = this.settings;
+      const inactiveButtonClass = this._inactiveButtonClass;
       this._buttonElement.classList.remove(inactiveButtonClass);
       this._buttonElement.disabled = false;
     };
@@ -81,4 +90,11 @@ export class FormValidator {
     }
   }
   
-  
+  export const validationConfig = {
+    formSelector: ".popup__form",
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__save",
+    inactiveButtonClass: "popup__save_disabled",
+    inputErrorClass: "popup__input_type_error",
+    errorClass: "popup__error_visible",
+  };
