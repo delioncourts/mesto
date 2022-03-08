@@ -19,7 +19,6 @@ export class FormValidator {
       const inputErrorClass = this._inputErrorClass
       const errorClass = this._errorClass;
       const errorElement = this._form.querySelector(
-        //'#${inputElement.id}-error');
         "#" + inputElement.id + "-error")
       inputElement.classList.add(inputErrorClass);
       errorElement.classList.add(errorClass);

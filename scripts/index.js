@@ -41,7 +41,7 @@ const popupCardsContainer = addCardModal.querySelector(".popup__container");
 const popupCardsForm = popupCardsContainer.querySelector(".popup__form");
 const buttonSave = popupCardsForm.querySelector(".popup__save");
 
-function handleCardClick(name, link) {
+export function handleCardClick(name, link) {
   popupOpenSubtitle.textContent = this._name;
   popupOpenPhoto.src = this._link;
   popupOpenPhoto.alt = this._name;
@@ -61,11 +61,17 @@ const validationConfig = {
 //function toggleModal(modal) {modal.classList.toggle("popup_opened")}
 
 
-const renderCard = (data) => { 
-  const card = new Card(data, cardTemplateSelector); 
-  const cardElement = card.getCardElement(); 
-  document.querySelector(".cards__grid").prepend(cardElement) 
+function createCard(item) {
+  const card = new Card(item, cardTemplateSelector, handleCardClick);
+  const cardElement = card.getCardElement();
+  return cardElement
 }
+
+function renderCard(cardItem) {
+  const newCard = createCard(cardItem);
+  cardList.prepend(newCard);
+}
+
 initialCards.forEach(renderCard); 
 
 const editFormValid = new FormValidator(validationConfig, profileForm)
@@ -77,7 +83,7 @@ addCardFormValid.enableValidation();
 //редактирование профиля
 function submitCardHandler(evt) {
   evt.preventDefault();
-  createCard ({
+  renderCard ({
     name: inputCardName.value,
     link: inputCardLink.value
   })
@@ -108,7 +114,6 @@ function submitProfileForm(evt) {
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
   closePopup(editModal);
-  //formReset(submitProfileForm);
 }
 
 profileForm.addEventListener('submit', submitProfileForm);

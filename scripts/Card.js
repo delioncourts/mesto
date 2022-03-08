@@ -1,6 +1,6 @@
 import { openPopup } from "./utils.js";
 import { imageCardModal, popupOpenPhoto, popupOpenSubtitle } from "./constants.js"
-//import { handleCardClick } from "./index.js"
+import { handleCardClick } from "./index.js"
 
 export class Card {
     constructor(data, cardTemplateSelector, handleCardClick) {
@@ -17,8 +17,6 @@ export class Card {
 
     _handleDeleteCard(evt) {
       evt.target.closest(".card").remove()
-        //this._cardElement.remove();
-       // this._cardElement = null;
       }
 
       _setEventListeners = () => {
