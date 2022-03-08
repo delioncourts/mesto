@@ -1,13 +1,14 @@
 import { openPopup } from "./utils.js";
 import { imageCardModal, popupOpenPhoto, popupOpenSubtitle } from "./constants.js"
+import { handleCardClick } from "./index.js"
 
 export class Card {
-    constructor(data, cardTemplateSelector) {
+    constructor(data, cardTemplateSelector, handleCardClick) {
         //this._data = data; 
         this._name = data.name;
         this._link = data.link;
         this._template = document.querySelector(cardTemplateSelector).content;
-
+        this._handleCardClick = handleCardClick;
     }
 
     _addLike = () => {
@@ -20,18 +21,12 @@ export class Card {
         this._cardElement = null;
       }
 
-      _previewPicture = () => {
-        popupOpenSubtitle.textContent = this._name;
-        popupOpenPhoto.src = this._link;
-        popupOpenPhoto.alt = this._name;
-        openPopup(imageCardModal);
-      }
-
-
       _setEventListeners = () => {
         this._deleteButton.addEventListener("click", this._handleDeleteCard);
         this._likeButton.addEventListener("click", this._addLike);
-        this._cardImage.addEventListener("click", this._previewPicture);
+        this._cardImage.addEventListener('click', () => {
+          this._handleCardClick(this._name, this._link)
+        });
       }
 
       _fillCard = () => {

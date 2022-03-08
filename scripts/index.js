@@ -52,11 +52,18 @@ const validationConfig = {
   errorClass: "popup__error_visible",
 };
 
-const renderCard = (data) => { 
-  const card = new Card(data, cardTemplateSelector);
+function createCard(item)) {
+  const card = new Card(item, cardTemplateSelector, handleCardClick);
   const cardElement = card.getCardElement();
-  document.querySelector(".cards__grid").prepend(cardElement)
+  return cardElement;
 }
+
+const renderCard = (data) => { 
+  const element = createCard(data);
+  return element;
+}
+
+section.prepend(createCard(item)); 
 
 initialCards.forEach(renderCard);
 
@@ -65,6 +72,14 @@ const addCardFormValid = new FormValidator(validationConfig, addCardForm)
 
 editFormValid.enableValidation();
 addCardFormValid.enableValidation();
+
+
+function handleCardClick(name, link) {
+  popupOpenSubtitle.textContent = this._name;
+  popupOpenPhoto.src = this._link;
+  popupOpenPhoto.alt = this._name;
+  openPopup(imageCardModal);
+}
 
 //редактирование профиля
 function submitCardHandler(evt) {
