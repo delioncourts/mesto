@@ -89,7 +89,7 @@ function submitCardHandler(evt) {
   })
   addCardFormValid.disableSubmitButton();
   addCardForm.reset();
-  closePopup(editModal);
+  closePopup(addCardModal);
 }
 
 popupType.forEach((popup) => {
