@@ -5,19 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Место: интерактивный сайт для фотографий</title>
-    <link rel="stylesheet" href="./src/pages/index.css">
 </head>
 
 <body class="page">
 
     <header class="header">
-        <a href="https://delioncourts.github.io/mesto/index.html"><img class="header__logo" src="./src/images/logo.svg"
+        <a href="https://delioncourts.github.io/mesto/index.html"><img class="header__logo" src="<%=require('./src/images/logo.svg')%>" 
                 alt="логотип Место"></a>
     </header>
 
     <main class="main">
         <section class="profile">
-            <img src="./src/images/avatar.jpg" alt="фотография профиля" class="profile__avatar">
+            <img src="<%=require('./src/images/avatar.jpg')%>" alt="фотография профиля" class="profile__avatar">
             <div class="profile__info">
                 <div class="profile__container">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -88,7 +87,6 @@
             </div>
         </li>
     </template>
-    <script type="module" src="./src/pages/index.js"></script>
 </body>
 
 </html>
