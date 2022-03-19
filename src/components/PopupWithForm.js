@@ -5,15 +5,15 @@ constructor(popupSelector, handleSubmit) {
     super(popupSelector)
     this._handleSubmit = handleSubmit
     this._form = this._popup.querySelector(".popup__form")
+    this._inputs = [...this._form.querySelectorAll(".popup__input")]
+    this._values = {}
 }
 
 _getInputValues() {
-const inputs = [...this._form.querySelectorAll(".popup__input")]
-const values = {}
-inputs.forEach((input) => {
-    values[input.name] = input.value
+this._inputs.forEach((input) => {
+    this._values[input.name] = input.value
 })
-return values
+return this._values
 }
 
 setEventListeners() {

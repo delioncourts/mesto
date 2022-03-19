@@ -13,7 +13,8 @@ import {
   inputCardName,
   inputCardLink,
   cardList,
-  cardTemplateSelector 
+  cardTemplateSelector,
+  validationConfig
 } from "../scripts/constants.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { Card } from "../components/Card.js";
@@ -28,15 +29,6 @@ export function handleCardClick(name, link) {
   popupOpenPhoto.src = this._link;
   popupOpenPhoto.alt = this._name;
 }
-
-const validationConfig = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save",
-  inactiveButtonClass: "popup__save_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
 
 
 function createCard(item) {
@@ -59,8 +51,8 @@ addCardFormValid.enableValidation();
 //редактирование профиля
 function submitCardHandler() {
   const card = createCard({
-    name: inputCardName.value,
-    link: inputCardLink.value,
+    name: data['card-name'],
+    link: data.link,
   });
   section.addItem(card);
   addCardPopup.close();
