@@ -11,6 +11,7 @@ export class PopupWithImage extends Popup {
 
     caption.textContent = text;
     image.src = link;
+    image.alt = text;
 
     super.open();
   }

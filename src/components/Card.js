@@ -1,12 +1,3 @@
-import {
-  imageCardModal,
-  popupOpenPhoto,
-  popupOpenSubtitle,
-} from "../scripts/constants.js";
-
-//../scripts/constants.js
-//import { handleCardClick } from "../pages/index.js";
-
 export class Card {
   constructor(data, cardTemplateSelector, handleCardClick) {
     this._name = data.name;
