@@ -49,9 +49,9 @@ editFormValid.enableValidation();
 addCardFormValid.enableValidation();
 
 //редактирование профиля
-function submitCardHandler() {
+function submitCardHandler(data) {
   const card = createCard({
-    name: data['card-name'],
+    name: data.name,
     link: data.link,
   });
   section.addItem(card);
@@ -59,8 +59,7 @@ function submitCardHandler() {
   addCardFormValid.disableSubmitButton();
 }
 
-
-const submitProfileForm = (data) => {
+function submitProfileForm(data) {
   const { name, job } = data;
   userInfo.setUserInfo(name, job);
   editProfilePopup.close();
@@ -72,6 +71,7 @@ editProfileButton.addEventListener("click", () => {
   nameInput.value = name; 
   jobInput.value = job;
 });
+
 addCardButton.addEventListener("click", () => {
   addCardPopup.open();
 });

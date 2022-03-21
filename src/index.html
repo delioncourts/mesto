@@ -10,12 +10,12 @@
 <body class="page">
 
     <header class="header">
-        <a href="https://delioncourts.github.io/mesto/index.html"><img class="header__logo" src="<%=require('../../images/logo.svg" alt="логотип Место"></a>
+        <a href="https://delioncourts.github.io/mesto/index.html"><img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип Место"></a>
     </header>
 
     <main class="main">
         <section class="profile">
-            <img src="<%=require('../../images/avatar.jpg" alt="фотография профиля" class="profile__avatar">
+            <img src="<%=require('./images/avatar.jpg')%>" alt="фотография профиля" class="profile__avatar">
             <div class="profile__info">
                 <div class="profile__container">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -43,8 +43,8 @@
                     name="name" minlength="2" maxlength="40" required>
                 <span class="popup__error" id="name-error"></span>
 
-                <input class="popup__input popup__input_type_job" type="text" placeholder="Описание" id="description"
-                    name="description" minlength="2" maxlength="200" required>
+                <input class="popup__input popup__input_type_job" type="text" placeholder="Описание" id="job"
+                    name="job" minlength="2" maxlength="200" required>
                 <span class="popup__error" id="description-error"></span>
                 <button class="popup__save" type="submit">Сохранить</button>
             </form>
