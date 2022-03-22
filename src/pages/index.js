@@ -24,12 +24,16 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import "./index.css"
 
+const userInfo = new UserInfo({
+  profileNameSelector: ".profile__title",
+  profileDescriptionSelector: ".profile__subtitle"
+});
+
 export function handleCardClick(name, link) {
   popupOpenSubtitle.textContent = this._name;
   popupOpenPhoto.src = this._link;
   popupOpenPhoto.alt = this._name;
 }
-
 
 function createCard(item) {
   const card = new Card(item, cardTemplateSelector, handleCardClick);
@@ -51,7 +55,7 @@ addCardFormValid.enableValidation();
 //редактирование профиля
 function submitCardHandler(data) {
   const card = createCard({
-    name: data.name,
+    name: data['card-name'], 
     link: data.link,
   });
   section.addItem(card);
@@ -67,9 +71,9 @@ function submitProfileForm(data) {
 
 editProfileButton.addEventListener("click", () => {
   editProfilePopup.open();
-  const { name, job } = userInfo.getUserInfo();
-  nameInput.value = name; 
-  jobInput.value = job;
+  const userInformation = userInfo.getUserInfo();
+  nameInput.value = userInformation.name; 
+  jobInput.value = userInformation.job;
 });
 
 addCardButton.addEventListener("click", () => {
@@ -97,7 +101,3 @@ addCardPopup.setEventListeners();
 editProfilePopup.setEventListeners();
 section.renderItems();
 
-const userInfo = new UserInfo({
-  profileNameSelector: ".profile__title",
-  profileDescriptionSelector: ".profile__subtitle"
-});
