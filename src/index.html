@@ -57,7 +57,7 @@
 
     <!-- Popup изменить аватар -->
 
-    <darticle class="popup popup_type_avatar">
+    <article class="popup popup_type_avatar">
         <div class="popup__container popup__container-avatar">
             <h2 class="popup__title popup__title_avatar">
                 Обновить аватар
@@ -71,56 +71,56 @@
             </form>
             <button class="popup__close" aria-label="закрыть" type="button"></button>
         </div>
-        </article>
+    </article>
 
-        <!-- Popup открытие карточки -->
-        <article class="popup popup_type_open-card">
-            <div class="popup__container-open">
-                <button class="popup__close" aria-label="закрыть" type="button"></button>
-                <img class="popup__open-photo" alt="изображение">
-                <p class="popup__open-photo-subtitle"></p>
+    <!-- Popup открытие карточки -->
+    <article class="popup popup_type_open-card">
+        <div class="popup__container-open">
+            <button class="popup__close" aria-label="закрыть" type="button"></button>
+            <img class="popup__open-photo" alt="изображение">
+            <p class="popup__open-photo-subtitle"></p>
+        </div>
+    </article>
+
+    <!-- Popup добавление карточки -->
+    <article class="popup popup_type_add-card">
+        <div class="popup__container">
+            <h2 class="popup__heading">Новое место</h2>
+            <form class="popup__form popup__form_add-card" name="addcard" novalidate>
+                <input class="popup__input popup__input_type_card-name" type="text" placeholder="Название"
+                    id="card-name" name="card-name" minlength="2" maxlength="30" required>
+                <span class="popup__error" id="card-name-error"></span>
+                <input class="popup__input popup__input_type_card-link" type="url" placeholder="Ссылка на картинку"
+                    id="link" name="link" required>
+                <span class="popup__error" id="link-error"></span>
+                <button class="popup__save popup__create-card" type="submit">Сохранить</button>
+            </form>
+            <button class="popup__close" aria-label="закрыть" type="button"></button>
+        </div>
+    </article>
+
+    <!-- Popup подтверждение удаления карточки -->
+    <article class="popup popup_type_delete-confirm">
+        <div class="popup__container popup__container-delete">
+            <h2 class="popup__heading">Вы уверены?</h2>
+            <form class="popup__form popup__form_delete" name="delete" novalidate>
+                <button class="popup__save popup__delete-submit" type="submit">Да</button>
+            </form>
+            <button class="popup__close" aria-label="закрыть" type="button"></button>
+        </div>
+    </article>
+
+    <template class="card-template">
+        <li class="card">
+            <button class="card__delete" type="button" aria-label="удалить"></button>
+            <img class="card__image" src="#" alt="изображение">
+            <div class="card__description">
+                <h2 class="card__title"></h2>
+                <button class="card__like" type="button" aria-label="нравится"></button>
+                <span class="card__like-count"></span>
             </div>
-        </article>
-
-        <!-- Popup добавление карточки -->
-        <article class="popup popup_type_add-card">
-            <div class="popup__container">
-                <h2 class="popup__heading">Новое место</h2>
-                <form class="popup__form popup__form_add-card" name="addcard" novalidate>
-                    <input class="popup__input popup__input_type_card-name" type="text" placeholder="Название"
-                        id="card-name" name="card-name" minlength="2" maxlength="30" required>
-                    <span class="popup__error" id="card-name-error"></span>
-                    <input class="popup__input popup__input_type_card-link" type="url" placeholder="Ссылка на картинку"
-                        id="link" name="link" required>
-                    <span class="popup__error" id="link-error"></span>
-                    <button class="popup__save popup__create-card" type="submit">Сохранить</button>
-                </form>
-                <button class="popup__close" aria-label="закрыть" type="button"></button>
-            </div>
-        </article>
-
-        <!-- Popup подтверждение удаления карточки -->
-        <article class="popup popup_type_delete-confirm">
-            <div class="popup__container popup__container-delete">
-                <h2 class="popup__heading">Вы уверены?</h2>
-                <form class="popup__form popup__form_delete" name="delete" novalidate>
-                    <button class="popup__save popup__delete-submit" type="submit">Да</button>
-                </form>
-                <button class="popup__close" aria-label="закрыть" type="button"></button>
-            </div>
-        </article>
-
-        <template class="card-template">
-            <li class="card">
-                <button class="card__delete" type="button" aria-label="удалить"></button>
-                <img class="card__image" src="#" alt="изображение">
-                <div class="card__description">
-                    <h2 class="card__title"></h2>
-                    <button class="card__like" type="button" aria-label="нравится"></button>
-                    <span class="card__like-count"></span>
-                </div>
-            </li>
-        </template>
+        </li>
+    </template>
 </body>
 
 </html>
