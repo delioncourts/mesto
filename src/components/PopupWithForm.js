@@ -16,6 +16,9 @@ this._inputs.forEach((input) => {
 return this._values
 }
 
+changeSubmitHandler(newSubmitHandler) {
+    this._handleSubmit = newSubmitHandler
+}
 setEventListeners() {
 super.setEventListeners()
 this._form.addEventListener("submit", (event) => {
