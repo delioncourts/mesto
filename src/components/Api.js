@@ -3,21 +3,23 @@ class Api {
       this._headers = headers;
       this._baseUrl = baseUrl;
     }
+
+    _checkServerResponse(res) {
+        return res.ok ? res.json() : Promise.reject(res.status)
+    }
   
     getProfile() {
       return fetch(`${this._baseUrl}/users/me`, {
         headers: this._headers,
       })
-        .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-        .catch(console.log);
+        .then(this._checkServerResponse)
     }
   
     getInitialCards() {
       return fetch(`${this._baseUrl}/cards`, {
         headers: this._headers,
       })
-        .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-        .catch(console.log);
+        .then(this._checkServerResponse)
     }
   
     editProfile(name, about) {
@@ -29,8 +31,7 @@ class Api {
           about,
         }),
       })
-        .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-        .catch(console.log);
+      .then(this._checkServerResponse)
     }
 
     addCard(name, link) {
@@ -39,11 +40,10 @@ class Api {
           headers: this._headers,
           body: JSON.stringify({
             name,
-            link,
+            link
           }),
         })
-          .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-          .catch(console.log);
+        .then(this._checkServerResponse)
       }
 
       deleteCard(id) {
@@ -51,8 +51,8 @@ class Api {
           method: "DELETE",
           headers: this._headers,
         })
-          .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-          .catch(console.log);
+        .then(this._checkServerResponse)
+
       }
 
       deleteLike(id) {
@@ -60,17 +60,27 @@ class Api {
             method: "DELETE",
             headers: this._headers
         })
-          .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-          .catch(console.log);
+        .then(this._checkServerResponse)
+
       }
 
-      addLike() {
+      addLike(id) {
         return fetch(`${this._baseUrl}/cards/${id}/likes`, {
             method: "PUT",
             headers: this._headers
         })
-          .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-          .catch(console.log);
+        .then(this._checkServerResponse)
+      }
+
+      changeAvatar() {
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
+            method: "PATCH",
+            headers: this._headers,
+            body: JSON.stringify({
+                avatar
+            })
+        })
+        .then(this._checkServerResponse)
       }
 
   }
