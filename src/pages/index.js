@@ -45,9 +45,13 @@ Promise.all([api.getProfile(), api.getInitialCards()])
     console.log(err);
   });
 
-api.getProfile().then((res) => {
+api.getProfile()
+.then((res) => {
   userInfo.setUserInfo(res.name, res.about);
   userID = res._id;
+})
+.catch((err) => {
+  console.log(err);
 });
 
 api.getInitialCards().then((cardList) => {
