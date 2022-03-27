@@ -10,21 +10,18 @@ constructor(popupSelector, handleSubmit) {
 }
 
 _getInputValues() {
+this._values = {}
 this._inputs.forEach((input) => {
     this._values[input.name] = input.value
 })
 return this._values
 }
 
-changeSubmitHandler(newSubmitHandler) {
-    this._handleSubmit = newSubmitHandler
-}
 setEventListeners() {
 super.setEventListeners()
 this._form.addEventListener("submit", (event) => {
     event.preventDefault();
     this._handleSubmit(this._getInputValues())
-    this.close();
 })
 }
 

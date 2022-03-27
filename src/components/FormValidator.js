@@ -10,6 +10,12 @@ export class FormValidator {
     );
   }
 
+  renderLoading(isLoading) {
+    if(isLoading) {
+        this._buttonElement.textContent = 'Сохранение...';
+    }
+  }
+
   _showError(inputElement, errorMessage) {
     const {inputErrorClass, errorClass} = this._settings;
     const errorElement = this._form.querySelector(`#${inputElement.id}-error`);

@@ -42,6 +42,8 @@ export const jobInput = document.querySelector(".popup__input_type_job");
 export const editModal = document.querySelector(".popup_type_edit");
 export const addCardModal = document.querySelector(".popup_type_add-card");
 
+export const avatarProfile = ".profile__avatar";
+
 //формы
 export const addCardForm = addCardModal.querySelector(".popup__form_add-card");
 export const profileForm = editModal.querySelector(".popup__form_edit");
