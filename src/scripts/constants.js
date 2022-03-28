@@ -38,12 +38,12 @@ export const popupOpenSubtitle = document.querySelector(
 export const nameInput = document.querySelector(".popup__input_type_name");
 export const jobInput = document.querySelector(".popup__input_type_job");
 
-
 export const editModal = document.querySelector(".popup_type_edit");
 export const addCardModal = document.querySelector(".popup_type_add-card");
+export const avatarModal = document.querySelector(".popup_type_avatar");
 
-export const avatarProfile = ".profile__avatar";
-
+export const avatarEditOpen = document.querySelector(".profile__edit");
+export const avatarForm = avatarModal.querySelector(".popup__form");
 //формы
 export const addCardForm = addCardModal.querySelector(".popup__form_add-card");
 export const profileForm = editModal.querySelector(".popup__form_edit");
@@ -68,3 +68,9 @@ export const validationConfig = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
+
+export const profileInfo = {
+  profileNameSelector: ".profile__title",
+  profileDescriptionSelector: ".profile__subtitle",
+  profileAvatarSelector: ".profile__avatar"
+}

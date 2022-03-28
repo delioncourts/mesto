@@ -32,9 +32,8 @@ export class Card {
   };
 
   isLiked() {
-    const userHasLikedCard = this._likes.find((user) => {
-      user._id === this._userId;
-    });
+    const userHasLikedCard = this._likes.find(user => 
+      user._id === this._userId);
     return userHasLikedCard;
   }
 
@@ -60,13 +59,11 @@ export class Card {
   // слушатели
 
   _setEventListeners = () => {
-    this._deleteButton.addEventListener(
-      "click",
-      this._handleDeleteClick(this._id)
-    );
-    this._likeButton.addEventListener("click", this._handleLikeClick(this._id));
+    
     this._cardImage.addEventListener("click", () => {
       this._handleCardClick(this._name, this._link);
+    this._deleteButton = this._cardElement.querySelector(".card__delete"); 
+    this._likeButton = this._cardElement.querySelector(".card__like"); 
     });
   };
 
@@ -93,7 +90,7 @@ export class Card {
 
     this.setLikes(this._likes);
 
-    if (this._ownerId !== this.userId) {
+    if (this._ownerId !== this._userId) {
       this._cardElement.querySelector(".card__delete").style.display = "none";
     }
 

@@ -38,3 +38,6 @@
 @import url(../blocks/popup/__input/_type/_error/popup__input_type_error.css);
 @import url(../blocks/popup/__error/_visible/popup__error_visible.css);
 @import url(../blocks/popup/__error/popup__error.css);
+@import url(../blocks/profile/__edit/profile__edit.css);
+@import url(../blocks/card/__like-count/card__like-count.css);
+@import url(../blocks/card/__container/card__container.css);

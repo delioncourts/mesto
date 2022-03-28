@@ -26,7 +26,7 @@ class Api {
         headers: this._headers,
         body: JSON.stringify({
           name,
-          about,
+          about
         }),
       }).then(this._checkServerResponse);
     }
@@ -63,12 +63,12 @@ class Api {
       }).then(this._checkServerResponse);
     }
   
-    changeAvatar() {
+    changeAvatar(avatar) {
       return fetch(`${this._baseUrl}/users/me/avatar`, {
         method: "PATCH",
         headers: this._headers,
         body: JSON.stringify({
-          avatar,
+          avatar
         }),
       }).then(this._checkServerResponse);
     }

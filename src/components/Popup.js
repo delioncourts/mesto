@@ -14,7 +14,9 @@ export class Popup {
   }
 
   _handleEscClose = (evt) => {
-    if (evt.key === "Escape") this.close();
+    if (evt.key === "Escape") {
+      this.close()
+    };
   };
 
   setEventListeners() {

@@ -17,6 +17,7 @@
     <main class="main">
         <section class="profile">
             <img src="<%=require('./images/avatar.jpg')%>" alt="фотография профиля" class="profile__avatar">
+            <button type="button" class="profile__edit"></button>
             <div class="profile__info">
                 <div class="profile__container">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -116,8 +117,10 @@
             <img class="card__image" src="#" alt="изображение">
             <div class="card__description">
                 <h2 class="card__title"></h2>
+                <div class="card__container">
                 <button class="card__like" type="button" aria-label="нравится"></button>
                 <span class="card__like-count"></span>
+            </div>
             </div>
         </li>
     </template>
