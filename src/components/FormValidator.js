@@ -8,7 +8,7 @@ export class FormValidator {
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass
-    
+
     this._inputList = Array.from(
       this._form.querySelectorAll(this._inputSelector)
     );
@@ -85,10 +85,10 @@ export class FormValidator {
   }
 
   enableValidation() {
+    this._setEventListeners();
     this.disableSubmitButton();
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
-    });
-    this._setEventListeners();
+    })
   }
 }

@@ -33,27 +33,24 @@ import "./index.css";
 
 let userId;
 
+// Редактирование профиля
+const user = new UserInfo(profileInfo)
+
 //Запрос данных на сервер
 
 Promise.all([api.getInitialCards(), api.getProfile()])
-  .then(([cardList, userData]) => {
-    userInfo.setUserInfo(userData.name, userData.about)
-    userInfo.setUserAvatar(userData.avatar)
+  .then(([cards, userData]) => {
     userId = userData._id
-    cardList.reverse()
-
-    cardList.forEach(data => {
-      const card = createCard(data)
-      section.addItem(card)
-    })
+    user.setUserInfo(userData.name, userData.about)
+    user.setUserAvatar(userData.avatar)
+    cards.reverse()
+    sectionPhoto.renderItems(cards)
   })
   .catch(err => {
     console.log(err)
   })
 
 
-// Редактирование профиля
-const userInfo = new UserInfo(profileInfo)
 
 // открытие изображения карточки
 const imagePopup = new PopupWithImage(".popup_type_open-card");
@@ -62,8 +59,8 @@ const imagePopup = new PopupWithImage(".popup_type_open-card");
 
 api.getProfile()
 .then((res) => {
-  userInfo.setUserInfo(res.name, res.about);
-  userID = res._id;
+  user.setUserInfo(res.name, res.about);
+  userId = res._id;
 })
 .catch((err) => {
   console.log(err);
@@ -77,11 +74,11 @@ api.getInitialCards().then((cardList) => {
       name: data.name,
       link: data.link,
       likes: data.likes,
-      id: data._id,
-      userId: userId,
-      //ownerId: data.owner._id,
+      _id: data._id,
+      userId: data.userId,
+      ownerId: data.owner._id,
     });
-    section.addItem(card);
+    sectionPhoto.addItem(card);
   });
 });
 
@@ -98,9 +95,9 @@ function createCard(data) {
     name: data.name,
     link: data.link,
     likes: data.likes,
-    //id: data._id,
-    userId: userId,
-    //ownerId: data.owner._id,
+   _id: data._id,
+    userId: data.userId,
+   ownerId: data.owner._id,
   },
    cardTemplateSelector, 
    handleCardClick, 
@@ -142,6 +139,7 @@ function createCard(data) {
   return cardElement;
 }
 
+///
 function renderCard(cardItem) {
   const newCard = createCard(cardItem);
   cardList.prepend(newCard);
@@ -164,11 +162,11 @@ function submitCardHandler(data) {
       name: data["card-name"],
       link: data.link,
       likes: data.likes,
-      _id: data._id,
-      userId: userId,
+      _id: data.id,
+      userId: data.userId,
       ownerId: data.owner._id,
     });
-    section.addItem(card);
+    sectionPhoto.addItem(card);
     addCardPopup.close();
     addCardFormValid.disableSubmitButton();
   });
@@ -179,17 +177,27 @@ function submitProfileForm(data) {
   const { name, job } = data;
 
   api.editProfile(name, job).then(() => {
-    userInfo.setUserInfo(name, job);
+    user.setUserInfo(name, job);
   });
 
   editProfilePopup.close();
 }
 
 
-const section = new Section(
-  { items: initialCards, renderer: renderCard },
-  ".cards__grid"
-);
+const sectionPhoto = new Section( {
+  items: [], //initialCards, 
+  renderer: (cardItem) => {
+    const newCard = createCard(cardItem);
+    cardList.addItem(newCard);
+  }
+}, ".cards__grid")
+
+
+  //function renderCard(cardItem) {
+   // const newCard = createCard(cardItem);
+   // cardList.prepend(newCard);
+  //}
+
 
 const addCardPopup = new PopupWithForm(
   ".popup_type_add-card",
@@ -209,7 +217,7 @@ const editAvatarPopup = new PopupWithForm(".popup_type_avatar", {
     editAvatarPopup.renderLoading(true)
       api.setUserAvatar(res.avatar)
           .then(res => {
-              userInfo.setUserAvatar(res.avatar)
+              user.setUserAvatar(res.avatar)
               editAvatarPopup.close()
           })
 
@@ -230,7 +238,7 @@ editAvatarPopup.setEventListeners();
 
 editProfileButton.addEventListener("click", () => {
   editProfilePopup.open();
-  const userInformation = userInfo.getUserInfo();
+  const userInformation = user.getUserInfo();
   nameInput.value = userInformation.name;
   jobInput.value = userInformation.job;
 });
@@ -244,4 +252,6 @@ avatarEditOpen.addEventListener("click", () => {
   avatarForm.open();
 });
 
-section.renderItems();
+
+//создание карточек
+sectionPhoto.renderItems();

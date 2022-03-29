@@ -43,7 +43,7 @@ export const addCardModal = document.querySelector(".popup_type_add-card");
 export const avatarModal = document.querySelector(".popup_type_avatar");
 
 export const avatarEditOpen = document.querySelector(".profile__edit");
-export const avatarForm = avatarModal.querySelector(".popup__form");
+export const avatarForm = avatarModal.querySelector(".popup__form_avatar");
 //формы
 export const addCardForm = addCardModal.querySelector(".popup__form_add-card");
 export const profileForm = editModal.querySelector(".popup__form_edit");

@@ -1,3 +1,4 @@
 .popup__error_visible {
-    border-bottom: 1px solid #FF0000;
+    visibility: visible;
+    opacity: 1;
 }

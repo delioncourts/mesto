@@ -1,23 +1,30 @@
 class Api {
     constructor({ baseUrl, headers }) {
-      this._headers = headers;
       this._baseUrl = baseUrl;
+      this._headers = headers;
     }
   
     _checkServerResponse(res) {
-      return res.ok ? res.json() : Promise.reject(res.status);
+        if(res.ok) {
+            return res.json()
+        }
+        else {
+            return Promise.reject(res.status);
+        }
     }
   
     getProfile() {
       return fetch(`${this._baseUrl}/users/me`, {
         headers: this._headers,
-      }).then(this._checkServerResponse);
+      })
+      .then(this._checkServerResponse);
     }
   
     getInitialCards() {
       return fetch(`${this._baseUrl}/cards`, {
         headers: this._headers,
-      }).then(this._checkServerResponse);
+      })
+      .then(this._checkServerResponse);
     }
   
     editProfile(name, about) {
@@ -28,7 +35,8 @@ class Api {
           name,
           about
         }),
-      }).then(this._checkServerResponse);
+      })
+      .then(this._checkServerResponse);
     }
   
     addCard(name, link) {
@@ -37,30 +45,34 @@ class Api {
         headers: this._headers,
         body: JSON.stringify({
           name,
-          link,
+          link
         }),
-      }).then(this._checkServerResponse);
+      })
+      .then(this._checkServerResponse);
     }
   
     deleteCard(id) {
       return fetch(`${this._baseUrl}/cards/${id}`, {
         method: "DELETE",
-        headers: this._headers,
-      }).then(this._checkServerResponse);
+        headers: this._headers
+      })
+      .then(this._checkServerResponse);
     }
   
     deleteLike(id) {
       return fetch(`${this._baseUrl}/cards/${id}/likes`, {
         method: "DELETE",
-        headers: this._headers,
-      }).then(this._checkServerResponse);
+        headers: this._headers
+      })
+      .then(this._checkServerResponse);
     }
   
     addLike(id) {
       return fetch(`${this._baseUrl}/cards/${id}/likes`, {
         method: "PUT",
         headers: this._headers,
-      }).then(this._checkServerResponse);
+      })
+      .then(this._checkServerResponse);
     }
   
     changeAvatar(avatar) {
@@ -70,7 +82,8 @@ class Api {
         body: JSON.stringify({
           avatar
         }),
-      }).then(this._checkServerResponse);
+      })
+      .then(this._checkServerResponse);
     }
   }
   
