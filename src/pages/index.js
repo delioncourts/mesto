@@ -6,6 +6,7 @@ import {
   nameInput,
   jobInput,
   editModal,
+  addCardModal,
   addCardForm,
   profileForm,
   editProfileButton,
@@ -16,9 +17,10 @@ import {
   cardTemplateSelector,
   validationConfig,
   avatarEditOpen,
-  avatarModal, 
+  avatarModal,
   avatarForm,
-  profileInfo
+  profileInfo,
+  cardGrid,
 } from "../scripts/constants.js";
 import { Card } from "../components/Card.js";
 import { Section } from "../components/Section.js";
@@ -31,121 +33,7 @@ import { api } from "../components/Api.js";
 
 import "./index.css";
 
-let userId;
-
-// Редактирование профиля
-const user = new UserInfo(profileInfo)
-
-//Запрос данных на сервер
-
-Promise.all([api.getInitialCards(), api.getProfile()])
-  .then(([cards, userData]) => {
-    userId = userData._id
-    user.setUserInfo(userData.name, userData.about)
-    user.setUserAvatar(userData.avatar)
-    cards.reverse()
-    sectionPhoto.renderItems(cards)
-  })
-  .catch(err => {
-    console.log(err)
-  })
-
-
-
-// открытие изображения карточки
-const imagePopup = new PopupWithImage(".popup_type_open-card");
-
-// // создание новой карточки
-
-api.getProfile()
-.then((res) => {
-  user.setUserInfo(res.name, res.about);
-  userId = res._id;
-})
-.catch((err) => {
-  console.log(err);
-});
-
-// ///
-api.getInitialCards().then((cardList) => {
-  console.log("cardList", cardList);
-  cardList.forEach((data) => {
-    const card = createCard({
-      name: data.name,
-      link: data.link,
-      likes: data.likes,
-      _id: data._id,
-      userId: data.userId,
-      ownerId: data.owner._id,
-    });
-    sectionPhoto.addItem(card);
-  });
-});
-
-
-// //Открытие попапа с каринкой
-function handleCardClick(name, link) {
-  imagePopup.open(name, link)
-}
-
-//Создание новой карточки
-function createCard(data) {
-  const card = new Card(
-  {
-    name: data.name,
-    link: data.link,
-    likes: data.likes,
-   _id: data._id,
-    userId: data.userId,
-   ownerId: data.owner._id,
-  },
-   cardTemplateSelector, 
-   handleCardClick, 
-   (id) => {
-    confirmPopup.open(),
-      confirmPopup.handleSubmit(() => {
-        api.deleteCard(id)
-        .then(() => {
-          card.deleteCard();
-          confirmPopup.close();
-        })
-        .catch(res => {
-          console.log(res)
-        })
-      }),
-
-      (id) => {
-        if (card.isLiked()) {
-          api.deleteLike(id)
-          .then(res => {
-            card.setLikes(res.likes);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        } else {
-          api.addLike(id)
-          .then((res) => {
-            card.setLikes(res.likes);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        }
-      };
-  });
-
-  const cardElement = card.getCardElement();
-  return cardElement;
-}
-
-///
-function renderCard(cardItem) {
-  const newCard = createCard(cardItem);
-  cardList.prepend(newCard);
-}
-
-// валидация 
+//Валидация
 const editFormValid = new FormValidator(validationConfig, profileForm);
 const addCardFormValid = new FormValidator(validationConfig, addCardForm);
 const avatarFormValid = new FormValidator(validationConfig, avatarForm);
@@ -154,104 +42,213 @@ editFormValid.enableValidation();
 addCardFormValid.enableValidation();
 avatarFormValid.enableValidation();
 
+let userId;
 
-//редактирование профиля
-function submitCardHandler(data) {
-  api.addCard(data["card-name"], data.link).then((res) => {
-    const card = createCard({
-      name: data["card-name"],
-      link: data.link,
-      likes: data.likes,
-      _id: data.id,
-      userId: data.userId,
-      ownerId: data.owner._id,
-    });
-    sectionPhoto.addItem(card);
-    addCardPopup.close();
-    addCardFormValid.disableSubmitButton();
-  });
+// Редактирование профиля
+const newUserInfo = new UserInfo(profileInfo);
+const deleteCardPopup = new PopupWithConfirmation(".popup_type_delete-confirm");
+// открытие изображения карточки
+const imagePopup = new PopupWithImage(".popup_type_open-card");
+
+//Создание новой карточки
+function createCard(item) {
+  const card = new Card(
+    {
+      data: item,
+
+      handleCardClick: (name, link) => {
+        imagePopup.open(name, link);
+      },
+
+      handleDeleteClick: (id) => {
+        deleteCardPopup.open();
+        deleteCardPopup.changeHandleSubmit(() => {
+          deleteCardPopup.renderLoading(true);
+          api
+            .deleteCard(id)
+            .then(() => {
+              card.deleteCard();
+              deleteCardPopup.close();
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+            .finally(() => {
+              deleteCardPopup.renderLoading(false, "Yes");
+            });
+        });
+      },
+
+      handleLikeClick: (id) => {
+        if (card.isLiked()) {
+          api
+            .removeLike(id)
+            .then((res) => {
+              card.setLikes(res.likes);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          api
+            .likeCard(id)
+            .then((res) => {
+              card.setLikes(res.likes);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      },
+    },
+    cardTemplateSelector
+  );
+
+  const cardElement = card.getCardElement();
+  return cardElement;
 }
 
-// Редактирование информации о профиле 
-function submitProfileForm(data) {
-  const { name, job } = data;
+// создание секции
+//const sectionPhoto = new Section(
+ // {
+ ///  renderer: (res) => {
+  //    sectionPhoto.addItem(
+  //      createCard({
+  //        name: res.name,
+  //        link: res.link,
+  //        likes: res.likes,
+   //       id: res._id,
+  //        ownerId: res.owner._id,
+   //       userId: userId,
+   //     })
+   //   );
+  //  },
+ // },
+ //// cardGrid
+//);
 
-  api.editProfile(name, job).then(() => {
-    user.setUserInfo(name, job);
+const cardsList = new Section({
+  items: [],
+  renderer: (data) => {
+      createCard(data, '.card-template', cardsList)
+    }
+  },
+  '.elements');
+//Запрос данных на сервер
+
+Promise.all([api.getInitialCards(), api.getProfile()])
+  .then(([res, userData]) => {
+    newUserInfo.setUserInfo(userData.name, userData.about, userData.avatar);
+    userId = userData._id;
+    res.reverse();
+    res.forEach(data => {
+      createCard(data, undefined, cardsList);
+    })
+  })
+  .catch((err) => {
+    console.log(err);
   });
 
-  editProfilePopup.close();
-}
-
-
-const sectionPhoto = new Section( {
-  items: [], //initialCards, 
-  renderer: (cardItem) => {
-    const newCard = createCard(cardItem);
-    cardList.addItem(newCard);
-  }
-}, ".cards__grid")
-
-
-  //function renderCard(cardItem) {
-   // const newCard = createCard(cardItem);
-   // cardList.prepend(newCard);
-  //}
-
-
+//форма
 const addCardPopup = new PopupWithForm(
-  ".popup_type_add-card",
-  submitCardHandler
+  {
+    handleSubmit: (data) => {
+      addCardPopup.renderLoading(true);
+      api
+        .addCard(data.name, data.link)
+        .then((res) => {
+          sectionPhoto.addItem(
+            createCard({
+              name: res.name,
+              link: res.link,
+              likes: res.likes,
+              id: res._id,
+              ownerId: res.owner._id,
+              userId: userId,
+            })
+          );
+          addCardPopup.close();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          addCardPopup.renderLoading(false, "Create");
+        });
+    },
+  },
+  addCardModal
 );
+
+//форма
 const editProfilePopup = new PopupWithForm(
-  ".popup_type_edit",
-  submitProfileForm
+  {
+    handleSubmit: (data) => {
+      editProfilePopup.renderLoading(true);
+      api
+        .editProfile(data.name, data.about)
+        .then(() => {
+          newUserInfo.setUserInfo(data.name, data.about);
+          editProfilePopup.close();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          editProfilePopup.renderLoading(false, "Save");
+        });
+    },
+  },
+  editModal
 );
 
-const confirmPopup = new PopupWithConfirmation(".popup_type_delete-confirm");
-
-
-// редактирование аватарки
-const editAvatarPopup = new PopupWithForm(".popup_type_avatar", {
-  handleSubmit: (res) => {
-    editAvatarPopup.renderLoading(true)
-      api.setUserAvatar(res.avatar)
-          .then(res => {
-              user.setUserAvatar(res.avatar)
-              editAvatarPopup.close()
-          })
-
-      .finally(() => { editAvatarPopup.renderLoading(false) })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
-})
+//форма
+const changeAvatarPopup = new PopupWithForm(
+  {
+    handleSubmit: (data) => {
+      changeAvatarPopup.renderLoading(true);
+      api
+        .changeAvatar(data.link)
+        .then(() => {
+          newUserInfo.setUserAvatar(data.link);
+          changeAvatarPopup.close();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          changeAvatarPopup.renderLoading(false, "Save");
+        });
+    },
+  },
+  avatarModal
+);
 
 // слушатели
 imagePopup.setEventListeners();
 addCardPopup.setEventListeners();
 editProfilePopup.setEventListeners();
-confirmPopup.setEventListeners();
-editAvatarPopup.setEventListeners();
+deleteCardPopup.setEventListeners();
+changeAvatarPopup.setEventListeners();
 
 editProfileButton.addEventListener("click", () => {
   editProfilePopup.open();
-  const userInformation = user.getUserInfo();
+  const userInformation = newUserInfo.getUserInfo();
   nameInput.value = userInformation.name;
   jobInput.value = userInformation.job;
+  editFormValid.resetValidation();
 });
 
 addCardButton.addEventListener("click", () => {
   addCardPopup.open();
+  addCardFormValid.resetValidation();
 });
 
 avatarEditOpen.addEventListener("click", () => {
-  avatarFormValid.disableSubmitButton()
+  avatarFormValid.disableSubmitButton();
   avatarForm.open();
+  avatarFormValid.resetValidation();
 });
 
-
 //создание карточек
-sectionPhoto.renderItems();
+// sectionPhoto.renderItems();

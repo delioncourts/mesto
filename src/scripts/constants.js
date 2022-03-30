@@ -58,7 +58,8 @@ export const inputCardName = document.querySelector(".popup__input_type_card-nam
 export const inputCardLink = document.querySelector(".popup__input_type_card-link");
 
 export const cardList = document.querySelector(".cards__grid");
-export const cardTemplateSelector = ".card-template";
+export const cardGrid = document.querySelector(".cards__grid");
+export const cardTemplateSelector = document.querySelector(".card-template")
 
 export const validationConfig = {
   formSelector: ".popup__form",
