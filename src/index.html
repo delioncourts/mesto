@@ -47,9 +47,9 @@
                     name="name" minlength="2" maxlength="40" required>
                 <span class="popup__error" id="name-error"></span>
 
-                <input class="popup__input popup__input_type_job" type="text" placeholder="Описание" id="job" name="job"
-                    minlength="2" maxlength="200" required>
-                <span class="popup__error" id="job-error"></span>
+                <input class="popup__input popup__input_type_job" type="text" placeholder="Описание" id="about"
+                    name="about" minlength="2" maxlength="200" required>
+                <span class="popup__error" id="about-error"></span>
                 <button class="popup__save" type="submit">Сохранить</button>
             </form>
             <button class="popup__close" aria-label="закрыть" type="button"></button>
@@ -60,12 +60,12 @@
 
     <article class="popup popup_type_avatar">
         <div class="popup__container popup__container-avatar">
-            <h2 class="popup__title popup__title_avatar">
+            <h2 class="popup__heading">
                 Обновить аватар
             </h2>
-            <form class="popup__form popup__form_avatar" name="avatar" novalidate>
+            <form class="popup__form popup__form_avatar" name="avatar-change" novalidate>
                 <input class="popup__input popup__input_avatar" type="url" placeholder="Ссылка на аватар"
-                    id="avatar_link" name="avatar" required>
+                    id="avatar" name="avatar" required>
                 <span class="popup__error" id="avatar-error"></span>
 
                 <button class="popup__save" type="submit">Сохранить</button>
@@ -89,8 +89,8 @@
             <h2 class="popup__heading">Новое место</h2>
             <form class="popup__form popup__form_add-card" name="addcard" novalidate>
                 <input class="popup__input popup__input_type_card-name" type="text" placeholder="Название"
-                    id="card-name" name="card-name" minlength="2" maxlength="30" required>
-                <span class="popup__error" id="card-name-error"></span>
+                    id="cardtitle" name="cardtitle" minlength="2" maxlength="30" required>
+                <span class="popup__error" id="cardtitle-error"></span>
                 <input class="popup__input popup__input_type_card-link" type="url" placeholder="Ссылка на картинку"
                     id="link" name="link" required>
                 <span class="popup__error" id="link-error"></span>
@@ -111,6 +111,7 @@
         </div>
     </article>
 
+    <!-- Template-->
     <template class="card-template">
         <li class="card">
             <button class="card__delete" type="button" aria-label="удалить"></button>
@@ -118,9 +119,9 @@
             <div class="card__description">
                 <h2 class="card__title"></h2>
                 <div class="card__container">
-                <button class="card__like" type="button" aria-label="нравится"></button>
-                <div class="card__like-count"></div>
-            </div>
+                    <button class="card__like" type="button" aria-label="нравится"></button>
+                    <div class="card__like-count"></div>
+                </div>
             </div>
         </li>
     </template>
