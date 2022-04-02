@@ -1,8 +1,5 @@
 export class Card {
-  constructor(
-    data, { handleCardClick} , handleDeleteClick, handleLikeClick,
-    cardTemplateSelector
-  ) {
+  constructor(data, cardTemplateSelector, handleCardClick, handleDeleteClick, handleLikeClick) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -10,21 +7,10 @@ export class Card {
     this._userId = data.userId;
     this._ownerId = data.ownerId;
 
-    this._cardTemplateSelector = document.querySelector(cardTemplateSelector);
+    this._template = document.querySelector(cardTemplateSelector).content.querySelector('.card');
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._handleLikeClick = handleLikeClick;
-  }
-
-  // генерация разметки
-  _getTemplate() {
-    const cardTemplateSelector = document
-      .querySelector('.card-template')
-      .content
-      .querySelector('.card')
-      .cloneNode(true);
-
-    return cardTemplateSelector;
   }
 
   // заполнение карточки
@@ -36,7 +22,7 @@ export class Card {
   };
 
   getCardElement() {
-    this._cardElement = this._getTemplate();
+    this._cardElement = this._template.cloneNode(true);
 
     this._cardImage = this._cardElement.querySelector(".card__image");
     this._deleteButton = this._cardElement.querySelector(".card__delete");

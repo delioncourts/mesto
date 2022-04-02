@@ -8,7 +8,7 @@ class Api {
     if (res.ok) {
       return res.json();
     } else {
-      return Promise.reject(res.status);
+      return Promise.reject(`Ошибка: ${res.status}`);
     }
   }
 
@@ -73,6 +73,7 @@ class Api {
     })
     .then(this._checkServerResponse);
   }
+  
   changeAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
