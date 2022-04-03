@@ -25,16 +25,10 @@ export class PopupWithForm extends Popup {
   }
 
   renderLoading(isLoading) {
-    if (isLoading) {
-      Array.from(this._saveButton).forEach((submit) => {
-          submit.textContent = "Сохранение...";
-      })
-  } else {
-      Array.from(this._saveButton).forEach((submit) => {
-          submit.textContent = "Сохранить";
-      })
+    if(isLoading) {
+      this._saveButton.textContent = "Сохранение...";
+    }
   }
-}
 
   setEventListeners() {
     super.setEventListeners();
@@ -42,7 +36,6 @@ export class PopupWithForm extends Popup {
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._handleSubmit(this._getInputValues());
-      this.close();
     });
   }
 }

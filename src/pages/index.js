@@ -42,10 +42,12 @@ Promise.all([api.getProfile(), api.getInitialCards()])
   .then(([userData, cards]) => {
     newUserInfo.setUserInfo(userData.name, userData.about, userData.avatar);
     userId = userData._id;
-    cards.forEach((data) => {
+    cards.forEach(data => {
       const newCard = createNewCard(data);
       initialCardsList.addItem(newCard);
+      //initialCardsList.renderItems(cards);
     });
+    //initialCardsList.renderItems(cards);
   })
   .catch((err) => {
     console.log(err);
@@ -79,7 +81,7 @@ const initialCardsList = new Section(
 );
 
 function renderCard(item) {
-  const cardElement = createCard(item);
+  const cardElement = createNewCard(item);
   addCard(cardElement);
 }
 
@@ -98,7 +100,7 @@ function createNewCard(data) {
     handleCardClick,
     (id) => {
       deleteCardPopup.open();
-      deleteCardPopup.setSubmitHandler(() => {
+      deleteCardPopup.handleSubmit(() => {
         api
           .deleteCard(id)
           .then(() => {
