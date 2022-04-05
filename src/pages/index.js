@@ -49,13 +49,6 @@ Promise.all([api.getInitialCards(), api.getProfile()])
   .catch((err) => {
     console.log(err);
   });
-    //cards.forEach(data => {
-    //  const newCard = createNewCard(data);
-     // initialCardsList.addItem(newCard);
-      //initialCardsList.renderItems(cards);
-    //});
-    //initialCardsList.renderItems(cards);
-  //})
 
 // Подтверждение удаления карточки
 const deleteCardPopup = new PopupWithConfirmation(".popup_type_delete-confirm");
@@ -147,7 +140,7 @@ const newUserInfo = new UserInfo({
 const addCardPopup = new PopupWithForm(".popup_type_add-card", {
   handleSubmit: (data) => {
     addCardPopup.renderLoading(true);
-    api.addCard(data.cardtitle, data.cardlink)
+    api.addCard(data['cardtitle'], data['cardlink'])
       .then(res => { 
         const newCardInfo = {
           link: res.link,
@@ -245,4 +238,4 @@ deleteCardPopup.setEventListeners();
 changeAvatarPopup.setEventListeners();
 
 //создание карточек
-initialCardsList.renderItems();
+//initialCardsList.renderItems();
