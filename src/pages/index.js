@@ -33,27 +33,29 @@ import "./index.css";
 let userId;
 
 // открытие фотокарточки
-function handleCardClick(name, link) {
-  imagePopup.open(name, link);
-}
+//function handleCardClick(name, link) {
+ // imagePopup.open(name, link);
+//}
 
 //Запрос данных на сервер
-Promise.all([api.getProfile(), api.getInitialCards()])
-  .then(([userData, cards]) => {
-    userId = userData._id;
-    newUserInfo.setUserInfo(userData.name, userData.about, userData.avatar);
-    cards.reverse();
-    initialCardsList.renderItems(cards);
+
+Promise.all([api.getInitialCards(), api.getProfile()])
+  .then(([cards, userInfo]) => {
+    newUserInfo.setUserInfo(userInfo.name, userInfo.about, userInfo.avatar);
+    userId = userInfo._id;
+  cards.reverse();
+  initialCardsList.renderItems(cards);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
     //cards.forEach(data => {
     //  const newCard = createNewCard(data);
      // initialCardsList.addItem(newCard);
       //initialCardsList.renderItems(cards);
     //});
     //initialCardsList.renderItems(cards);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  //})
 
 // Подтверждение удаления карточки
 const deleteCardPopup = new PopupWithConfirmation(".popup_type_delete-confirm");
@@ -65,7 +67,7 @@ const imagePopup = new PopupWithImage(".popup_type_open-card");
 // добавление карточек на страницу
 const initialCardsList = new Section({
    renderer: (item) => {
-   renderCard ({
+   newMakeCard ({
     name: item.name,
     link: item.link,
     likes: item.likes,
@@ -79,34 +81,27 @@ const initialCardsList = new Section({
  );
 
 
-function renderCard(item) {
-  const cardElement = getCardElement(item);
-  newCard(cardElement);
-}
+//function renderCard(item) {
+  //const cardElement = getCardElement(item);
+  //newCard(cardElement);
+//}
 
-function newCard(item) {
-  initialCardsList.addItem(item);
-}
+//function newCard(item) {
+  //initialCardsList.addItem(item);
+//}
 
 //Создание новой карточки
-function getCardElement(data) {
-  const card = new Card(
-    {
-      name: data.name,
-      link: data.link,
-      likes: data.likes,
-      _id: data._id,
-      userId: userId,
-      ownerId: data.owner._id,
-    },
-    cardTemplateSelector,
-    handleCardClick,
-    (id) => {
+function newMakeCard(item) {
+  const card = new Card(item.name, item.link, item.likes, item._id, 
+    userId, item.ownerId, '.card-template', 
+    {handleCardClick: (name, link) => {
+    imagePopup.open(name, link)}, 
+    handleDeleteClick: (id) => {
       deleteCardPopup.open();
       deleteCardPopup.handleSubmit(() => {
         api
           .deleteCard(id)
-          .then(() => {
+          .then(res => {
             card.deleteCard();
             deleteCardPopup.close();
           })
@@ -115,11 +110,11 @@ function getCardElement(data) {
           });
       });
     },
-    (id) => {
+    handleLikeClick: (id) => {
       if (card.isLiked()) {
         api
           .deleteLike(id)
-          .then((res) => {
+          .then(res => {
             card.setLikes(res.likes);
           })
           .catch((err) => {
@@ -128,17 +123,17 @@ function getCardElement(data) {
       } else {
         api
           .addLike(id)
-          .then((res) => {
+          .then(res => {
             card.setLikes(res.likes);
           })
           .catch((err) => {
             console.log(err);
           });
+        }
       }
-    }
-  );
+    })
   const cardElement = card.getCardElement();
-  return cardElement;
+  initialCardsList.addItem(cardElement);
 }
 
 //заполнение данных профиля
@@ -152,17 +147,17 @@ const newUserInfo = new UserInfo({
 const addCardPopup = new PopupWithForm(".popup_type_add-card", {
   handleSubmit: (data) => {
     addCardPopup.renderLoading(true);
-    api
-    //data.cardtitle
-      .addCard(data.name, data.link)
-      .then(res => { renderCard ({
-        name: res.name, 
-        link: res.link, 
-        likes: res.likes, 
-        _id: res._id, 
-        userId: res._id, 
-        ownerId: res.owner._id
-      })
+    api.addCard(data.cardtitle, data.cardlink)
+      .then(res => { 
+        const newCardInfo = {
+          link: res.link,
+          name: res.name,
+          likes: res.likes,
+          _id: res._id,
+          userId: res._id,
+          ownerId: res.owner._id
+        }
+        newMakeCard(newCardInfo);
       addCardPopup.close()
     })
       .catch((err) => {
