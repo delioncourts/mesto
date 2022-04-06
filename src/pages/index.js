@@ -60,14 +60,14 @@ const imagePopup = new PopupWithImage(".popup_type_open-card");
 // добавление карточек на страницу
 const initialCardsList = new Section({
    renderer: (item) => {
-   newMakeCard ({
+    initialCardsList.addItem(newMakeCard ({
     name: item.name,
     link: item.link,
     likes: item.likes,
     _id: item._id,
     userId: userId,
     ownerId: item.owner._id,
-    });
+    }));
    },
 },
  ".cards__grid"
@@ -126,7 +126,7 @@ function newMakeCard(item) {
       }
     })
   const cardElement = card.getCardElement();
-  initialCardsList.addItem(cardElement);
+  return cardElement 
 }
 
 //заполнение данных профиля
@@ -141,16 +141,15 @@ const addCardPopup = new PopupWithForm(".popup_type_add-card", {
   handleSubmit: (data) => {
     addCardPopup.renderLoading(true);
     api.addCard(data['cardtitle'], data['cardlink'])
-      .then(res => { 
-        const newCardInfo = {
+      .then((res) => { 
+        cinitialCardsList.addItem(newMakeCard( {
           link: res.link,
           name: res.name,
           likes: res.likes,
           _id: res._id,
           userId: res._id,
           ownerId: res.owner._id
-        }
-        newMakeCard(newCardInfo);
+        }));
       addCardPopup.close()
     })
       .catch((err) => {
