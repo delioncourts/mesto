@@ -1,5 +1,5 @@
 export class Card {
-  constructor(name, link, likes, id, userId, ownerId, cardTemplateSelector, {handleCardClick, handleDeleteClick, handleLikeClick}) {
+  constructor(name, link, likes, id, userId, ownerId, cardTemplateSelector, { handleCardClick, handleDeleteClick, handleLikeClick }) {
     this._name = name;
     this._link = link;
     this._likes = likes;
@@ -73,9 +73,9 @@ export class Card {
 
   // удаление карточки
 
-  deleteCard () {
+  deleteImage () {
     this._cardElement.remove();
-    this._cardElement = null;
+    //this._cardElement = null;
   };
 
   // слушатели
