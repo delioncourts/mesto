@@ -40,41 +40,41 @@ class Api {
 
   addCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({
-        name,
-        link,
-      }),
+        method: "POST",
+        headers: this._headers,
+        body: JSON.stringify({
+            name,
+            link
+        })
     })
-    .then(this._checkServerResponse);
-  }
+    .then(this._checkServerResponse)
+}
 
-  deleteCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`, {
+deleteCard(_id) {
+  return fetch(`${this._baseUrl}/cards/${_id}`, {
       method: "DELETE",
-      headers: this._headers,
-    })
-    .then(this._checkServerResponse);
-  }
+      headers: this._headers
+  })
+  .then(this._checkServerResponse)
+}
 
-  addLike(id) {
-    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+addLike(id) {
+  return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "PUT",
       headers: this._headers,
-    })
-    .then(this._checkServerResponse);
-  }
+  })
+  .then(this._checkServerResponse)
+}
 
-  deleteLike(id) {
-    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+deleteLike(_id) {
+  return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    })
-    .then(this._checkServerResponse);
-  }
+  })
+  .then(this._checkServerResponse)
+}
   
-  changeAvatar(avatar) {
+changeAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,

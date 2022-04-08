@@ -42,3 +42,4 @@
 @import url(../blocks/card/__like-count/card__like-count.css);
 @import url(../blocks/card/__container/card__container.css);
 @import url(../blocks/popup/__container-delete/popup__container-delete.css);
+@import url(../blocks/popup/__delete-submit/popup__delete-submit.css);
