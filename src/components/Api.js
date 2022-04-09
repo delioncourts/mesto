@@ -50,8 +50,8 @@ class Api {
     .then(this._checkServerResponse)
 }
 
-deleteCard(_id) {
-  return fetch(`${this._baseUrl}/cards/${_id}`, {
+deleteCard(id) {
+  return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers
   })
@@ -66,8 +66,8 @@ addLike(id) {
   .then(this._checkServerResponse)
 }
 
-deleteLike(_id) {
-  return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
+deleteLike(id) {
+  return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this._headers,
   })

@@ -65,7 +65,7 @@ const initialCardsList = new Section({
     name: data.name,
     link: data.link,
     likes: data.likes,
-    id: data._id,
+    _id: data._id,
     userId: userId,
     ownerId: data.owner._id,
     }));
@@ -138,8 +138,8 @@ handlerSubmit: (data) => {
           name: res.name,
           link: res.link,
           likes: res.likes,
-          id: res._id,
-          userId: userId,
+          _id: res._id,
+          userId: res._id,
           ownerId: res.owner._id
         })
         initialCardsList.addItem(newMakeCard(card)); 
