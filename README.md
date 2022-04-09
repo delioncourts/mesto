@@ -1,7 +1,7 @@
 # Проект: Место
 
 Интерактивный проект с фотографиями.
-Ссылка на проект: https://delioncourts.github.io/mesto
+Ссылка на проект: https://delioncourts.github.io/mesto/
 
 ### Обзор
 
