@@ -61,7 +61,7 @@ const imagePopup = new PopupWithImage(".popup_type_open-card");
 const initialCardsList = new Section({
   items: [],
    renderer: (data) => {
-    initialCardsList.addItem(newMakeCard ({
+    initialCardsList.addItem(createNewCard ({
     name: data.name,
     link: data.link,
     likes: data.likes,
@@ -75,7 +75,7 @@ const initialCardsList = new Section({
  );
 
 //Создание новой карточки
-function newMakeCard(item) {
+function createNewCard(item) {
   const card = new Card(item.name, item.link, item.likes, item._id, 
     userId, item.ownerId, '.card-template', 
     {handleCardClick: (name, link) => {
@@ -139,10 +139,10 @@ handlerSubmit: (data) => {
           link: res.link,
           likes: res.likes,
           _id: res._id,
-          userId: res._id,
+          userId: userId,
           ownerId: res.owner._id
         })
-        initialCardsList.addItem(newMakeCard(card)); 
+        initialCardsList.addItem(createNewCard(card)); 
       addCardPopup.close()
     })
       .catch((err) => {
