@@ -19,10 +19,6 @@ export class PopupWithForm extends Popup {
     return this._values;
   }
 
-  changeSubmitHandler(newhandlerFormSubmit){
-    this._handlerSubmit = newhandlerFormSubmit
-  }
-
   close() {
     super.close();
     this._form.reset();
